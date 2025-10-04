@@ -84,10 +84,9 @@ export const ExoplanetDetailsModal: React.FC<ExoplanetDetailsModalProps> = ({
         }}
       >
         <Typography
-          variant="h4"
           sx={{
             fontWeight: 600,
-            color: "#0D1B2A",
+            color: "primary.dark",
             fontSize: "2.4rem",
           }}
         >
@@ -96,7 +95,7 @@ export const ExoplanetDetailsModal: React.FC<ExoplanetDetailsModalProps> = ({
         <IconButton
           onClick={onClose}
           sx={{
-            color: "#7087ea",
+            color: "secondary.light",
             "&:hover": {
               backgroundColor: "rgba(112, 135, 234, 0.1)",
             },

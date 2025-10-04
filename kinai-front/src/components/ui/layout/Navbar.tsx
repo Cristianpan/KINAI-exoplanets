@@ -2,7 +2,7 @@
 import { Box, Typography, Link } from "@mui/material";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import { LogoIcon } from "../icons/LogoIcon";
+import { LogoIcon } from "../../icons/LogoIcon";
 import { useScrollSection } from "@/hooks/useScrollSection";
 
 interface NavItem {

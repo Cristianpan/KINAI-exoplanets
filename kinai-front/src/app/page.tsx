@@ -1,10 +1,10 @@
-import { Header } from "@/components/ui/home/Header";
+import { Header } from "@/components/home/Header";
 import { Box, Typography } from "@mui/material";
 import PublicRoundedIcon from "@mui/icons-material/PublicRounded";
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
-import { InfoCard } from "@/components/ui/home/InfoCard";
-import { ExoplanetsSection } from "@/components/ui/home/ExoplanetsSection";
+import { InfoCard } from "@/components/home/InfoCard";
+import { ExoplanetsSection } from "@/components/home/ExoplanetsSection";
 import { Exoplanet } from "@/interfaces/exoplanet";
 
 export default function Home() {

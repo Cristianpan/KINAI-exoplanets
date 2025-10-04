@@ -1,7 +1,5 @@
+import AnalysisContent from "@/components/analysis/AnalysisContent";
+
 export default function Analysis() {
-  return (
-    <div>
-      <h1>Analysis</h1>
-    </div>
-  );
+  return <AnalysisContent />;
 }
