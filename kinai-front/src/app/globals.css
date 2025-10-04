@@ -1,0 +1,15 @@
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+}
+
+body {
+    scroll-snap-type: y proximity;
+}
+
+/* Smooth centering for main sections */
+main, section {
+    scroll-margin-top: 0;
+    scroll-padding-top: 0;
+}

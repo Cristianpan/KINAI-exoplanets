@@ -2,7 +2,6 @@
 import { createTheme } from "@mui/material/styles";
 export const baseTheme = createTheme({
   typography: {
-    fontSize: 16,
     h1: {
       fontSize: "3.8rem",
       fontWeight: 600,
@@ -16,7 +15,7 @@ export const baseTheme = createTheme({
       fontWeight: 600,
     },
     body1: {
-      fontSize: "2.2rem",
+      fontSize: "2rem",
     },
 
     body2: {
@@ -45,28 +44,23 @@ export const baseTheme = createTheme({
     },
   },
   palette: {
-    mode: "dark",
     primary: {
       main: "#00BFFF",
       dark: "#0D1B2A",
       light: "#00CED1",
     },
     secondary: {
-      main: "#8A2BE2",
-      light: "#9370DB",
-    },
-    success: {
-      main: "#40E0D0",
-      light: "#7FFF00",
+      main: "#7087ea",
+      dark: "#5767aeff"
     },
     background: {
       default: "#0D1B2A",
       paper: "#1B263B",
     },
     text: {
-      primary: "#F0F0F0",
-      secondary: "#E0E0E0",
-      disabled: "#555555",
+      primary: "#222831",
+      secondary: "#393E46", 
+      disabled: "#E0E0E0",
     },
     divider: "#333333",
   },
