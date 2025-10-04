@@ -117,7 +117,7 @@ const Logo = ({ isInContentSection, pathname }: { isInContentSection: boolean; p
     >
       <LogoIcon sx={{ 
         ...NAVBAR_STYLES.logoIcon,
-        color: isInContentSection ? "secondary.main" : shouldUseWhite ? "common.white" : "primary.dark",
+        color: shouldUseWhite ? "common.white" : "secondary.main",
       }} />
       <Typography
         component="p"
