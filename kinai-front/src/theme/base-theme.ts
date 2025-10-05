@@ -50,7 +50,7 @@ export const baseTheme = createTheme({
       light: "#00CED1",
     },
     secondary: {
-      main: "#7087ea",
+      main: "#3757e2ff",
       dark: "#5767aeff"
     },
     background: {

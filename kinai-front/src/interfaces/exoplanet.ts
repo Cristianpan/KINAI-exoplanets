@@ -8,4 +8,5 @@ export interface Exoplanet {
   isVerified: boolean;
   habitability?: string; // e.g., "Potencialmente Habitable"
   planetType?: string; // e.g., "Super Earth"
+  points: number[];
 }

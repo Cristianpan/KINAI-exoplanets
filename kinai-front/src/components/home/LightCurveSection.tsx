@@ -1,12 +1,11 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Box, Typography } from "@mui/material";
-import dynamic from "next/dynamic";
+import ReactECharts from "echarts-for-react";
+// import dynamic from "next/dynamic";
 
 // Evita SSR para ECharts en Next.js
-const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false });
-
-type AnalysisState = "idle" | "analyzing" | "completed";
+// const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false });
 
 // Helpers
 function formatDate(d: Date) {
@@ -54,8 +53,8 @@ export const LightCurveSection: React.FC = () => {
   // Base temporal (un punto por día)
   const start = useMemo(() => new Date(1997, 9, 3), []);
   const oneDay = 24 * 3600 * 1000;
+  const chartRef = React.useRef<any>(null);
 
-  // Armamos la serie (time, value) con tus puntos
   const seriesData = useMemo(
     () =>
       points.map((y, i) => {
@@ -166,7 +165,11 @@ export const LightCurveSection: React.FC = () => {
         }}
       >
         <Box sx={{ height: "300px", width: "100%" }}>
-          <ReactECharts option={option} style={{ height: "100%", width: "100%" }} notMerge lazyUpdate />
+          <ReactECharts
+            ref={chartRef}
+            option={option}
+            style={{ height: "100%", width: "100%" }}
+          />
         </Box>
       </Box>
     </Box>

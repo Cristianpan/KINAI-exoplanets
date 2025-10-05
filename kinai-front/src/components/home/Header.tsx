@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import "./styles.css";
 
 export const Header = () => {
   return (
@@ -14,24 +15,28 @@ export const Header = () => {
         alignItems: "center",
         top: 0,
         left: 0,
+        gap: "20px",
         backgroundImage: "url('/assets/images/head-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
-      <Box sx={{ maxWidth: "50%" }}>
+      <Box sx={{ maxWidth: "90%" }}>
         <Typography
           component="h1"
           sx={{
-            fontSize: "5rem",
-            fontWeight: 600,
+            fontSize: "7rem",
+            fontWeight: 900,
             color: "common.white",
             textAlign: "center",
           }}
         >
-          Discovering new worlds among millions of stars.
+          <span className="gradient-title">Discovering</span> new worlds <br/>among
+          stars ✨
         </Typography>
+      </Box>
+      <Box sx={{ maxWidth: "50%" }}>
         <Typography
           component="p"
           sx={{

@@ -156,7 +156,7 @@ export const ExoplanetDetailsModal: React.FC<ExoplanetDetailsModalProps> = ({
           </Box>
           
           <LightCurveChart
-            orbitalPeriod={exoplanet.orbitalPeriod}
+            points={exoplanet.points}
           />
         </Box>
 
