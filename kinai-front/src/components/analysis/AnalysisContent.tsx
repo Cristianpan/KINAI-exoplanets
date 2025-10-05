@@ -43,8 +43,11 @@ export default function AnalysisContent() {
   };
 
   const handleAnalyzeWithAI = () => {
-    const data = { mappings, csvData }
-    console.log(data);
+    if(selectedModel === "simple") {
+        const data = { mappings, csvData }
+
+        console.log(data);
+    }
     // Aquí puedes implementar la lógica de análisis con los datos mapeados
   };
 

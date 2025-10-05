@@ -130,7 +130,6 @@ export default function ParameterMappingModal({
               // Convert based on data type
               if (column.schema?.dataType === "number") {
                 const parsed = parseFloat(value);
-                console.log(parsed)
                 convertedValue = isNaN(parsed) ? 0 : parsed;
                 // Debug log for number conversion issues
                 if (value && isNaN(parsed)) {

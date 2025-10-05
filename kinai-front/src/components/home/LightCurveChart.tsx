@@ -1,15 +1,5 @@
 "use client";
 import React from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceLine,
-} from "recharts";
 import { Box, Typography } from "@mui/material";
 
 interface LightCurveChartProps {
@@ -25,50 +15,53 @@ interface TooltipProps {
   label?: string;
 }
 
-// Generate sample transit light curve data
-const generateTransitData = (orbitalPeriod: number) => {
-  const data = [];
-  const transitDuration = orbitalPeriod * 0.1; // Transit lasts 10% of orbital period
-  const transitDepth = 0.01; // 1% decrease in brightness
-  
-  // Generate data points for one complete orbital period
-  for (let i = 0; i <= 100; i++) {
-    const time = (i / 100) * orbitalPeriod;
-    let brightness = 1.0; // Normal brightness
-    
-    // Create transit dip
-    if (time >= orbitalPeriod * 0.4 && time <= orbitalPeriod * 0.4 + transitDuration) {
-      const transitProgress = (time - orbitalPeriod * 0.4) / transitDuration;
-      if (transitProgress <= 0.1) {
-        // Transit ingress
-        brightness = 1.0 - (transitProgress / 0.1) * transitDepth;
-      } else if (transitProgress >= 0.9) {
-        // Transit egress
-        brightness = 1.0 - ((1 - transitProgress) / 0.1) * transitDepth;
-      } else {
-        // Full transit
-        brightness = 1.0 - transitDepth;
-      }
-    }
-    
-    // Add some noise to make it more realistic
-    const noise = (Math.random() - 0.5) * 0.002;
-    brightness += noise;
-    
-    data.push({
-      time: time.toFixed(1),
-      brightness: brightness.toFixed(6),
-      day: time.toFixed(1),
-    });
-  }
-  
-  return data;
-};
+const points = [
+  0.2713626011471899, 0.27876775831018774, 0.4023807263649813,
+  0.16726775109805733, 0.3947236216563401, 0.515961881114575,
+  0.41381037570772017, -0.10276161930037297, -0.04595549706277729,
+  -0.028755552646250623, 0.010367332043557886, 0.11938145702777901,
+  -0.07594864322004227, -0.08566051652496531, -0.006007857057829171,
+  0.006581424238132939, 0.14227349169804412, 0.10476486136055166,
+  0.10997765842090336, -0.22326525780227022, 0.04071501301353048,
+  0.14974082341624112, 0.1171984798738069, -0.09032874102206463,
+  0.06018480424398995, 0.23421927764854786, -0.05085122480361629,
+  -0.12916666623993853, -0.22789122586442417, -0.06495954472964,
+  0.12932494291092247, -0.19572513516560194, 0.021003541941170937,
+  0.09691723765313132, -0.22060602856147823, -0.4078962230821821,
+  0.007269622004837575, 0.08707283660526163, 0.12863858730539132,
+  0.1634825303884485, 0.1232068571499914, -0.20020552809454506,
+  0.1120325862262902, 0.16802078218845135, -0.5432066167699333, -1.0,
+  -0.733701953634729, -0.8992741784954804, -0.910799950981087,
+  -0.9707721600986866, -0.8763748822635974, -0.8246895412313813,
+  -0.6561025612286208, -0.7675473348054052, -0.7317876317804948,
+  -0.7728306124866051, -0.40635481749468333, 0.0525342470376287,
+  -0.11469123154510119, -0.12376369673372097, -0.10311797389056901,
+  -0.2893056916334355, 0.048483232282923734, -0.09938019082009804,
+  0.06775162453097588, 0.11542453729589713, 0.1603465047263822,
+  0.16864727782207573, -0.04272138128480835, 0.08378785373648344,
+  0.10759874666509973, 0.05428800124514639, 0.0600804605342103,
+  -0.2974884235785959, -0.08949902614237493, -0.1666737737039057,
+  -0.13558783398635038, 0.06305643217131997, 0.0, -0.3349338819119095,
+  -0.016679625820283327, -0.1999631641861923, 0.053576015241014706,
+  -0.05132469551176669, 0.20960796043365673, -0.07270058227853024,
+  0.06750349346328648, -0.04595549706277729, 0.20313359078292098,
+  -0.3041610524177178, 0.08329779921616445, -0.14999507199655518,
+  -0.038048783609791026, -0.08643714547364933, 0.1947683588721966,
+  -0.04869479416075494, 0.25937654467751337, 0.0832919924434518,
+  0.2773376552710015, 0.05583059730934225, 0.3923481866568066,
+];
+
+
 
 export const LightCurveChart: React.FC<LightCurveChartProps> = ({
   orbitalPeriod,
 }) => {
-  const data = generateTransitData(orbitalPeriod);
+  // Use the static points array for chart data
+  const data = points.map((brightness, idx) => ({
+    time: idx.toFixed(1),
+    brightness: brightness,
+    day: idx.toFixed(1),
+  }));
 
   const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
     if (active && payload && payload.length) {
@@ -106,78 +99,6 @@ export const LightCurveChart: React.FC<LightCurveChartProps> = ({
         border: "1px solid rgba(140, 156, 228, 0.3)",
       }}
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={data}
-          margin={{
-            top: 20,
-            right: 50,
-            left: 50,
-            bottom: 20,
-          }}
-        >
-          <CartesianGrid 
-            strokeDasharray="3 3" 
-            stroke="rgba(140, 156, 228, 0.2)"
-            strokeWidth={1}
-          />
-          <XAxis
-            dataKey="day"
-            stroke="#666"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-            tick={{ fill: "#666" }}
-            label={{
-              value: "Tiempo (días)",
-              position: "insideBottom",
-              offset: -20,
-              style: { textAnchor: "middle", fill: "#666", fontSize: "1.2rem" },
-            }}
-          />
-          <YAxis
-            domain={[0.985, 1.005]}
-            stroke="#666"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
-            tick={{ fill: "#666" }}
-            label={{
-              value: "Brillo Relativo",
-              angle: -90,
-              position: "insideLeft",
-              offset: -20,
-              style: { textAnchor: "middle", fill: "#666", fontSize: "1.2rem" },
-            }}
-          />
-          <Tooltip content={<CustomTooltip />} />
-          <ReferenceLine 
-            y={1.0} 
-            stroke="#7087ea" 
-            strokeDasharray="2 2" 
-            strokeWidth={1}
-            label={{ value: "Brillo Normal", position: "top", fill: "#7087ea" }}
-          />
-          <Line
-            type="monotone"
-            dataKey="brightness"
-            stroke="transparent"
-            strokeWidth={0}
-            dot={{ 
-              r: 3, 
-              fill: "#00BFFF",
-              stroke: "#00BFFF",
-              strokeWidth: 1,
-            }}
-            activeDot={{ 
-              r: 5, 
-              fill: "#7087ea",
-              stroke: "#7087ea",
-              strokeWidth: 2,
-            }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
     </Box>
   );
 };
