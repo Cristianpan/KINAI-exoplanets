@@ -3,7 +3,8 @@
 Development script to run the application in development mode
 """
 import os
-from app import app
+import main
+app = main.app
 
 if __name__ == "__main__":
     # Configure environment variables for development
@@ -13,7 +14,8 @@ if __name__ == "__main__":
     print("📍 URL: http://localhost:5000")
     print("🔧 Mode: Development (Debug enabled)")
     print("📋 Available routes:")
-    print("   - GET  / (home page)")
+    print("   - GET  /schemas (available schemas)")
+    print("   - GET  /schemas/<name> (specific schema)")
     print("   - POST /deep-predict (deep model)")
     print("   - POST /fast-predict (fast model)")
     print("\n" + "="*50)
