@@ -8,7 +8,7 @@ import { Navbar } from "@/components/ui";
 import "./globals.css";
 
 const roboto = Roboto({
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-roboto",
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${roboto.variable}`}>
+      <body className={`${roboto.className} ${roboto.variable}`}>
         <AppRouterCacheProvider>
           <CssBaseline/>
           <ThemeProvider theme={baseTheme}>

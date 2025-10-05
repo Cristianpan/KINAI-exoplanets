@@ -1,17 +1,29 @@
 "use client";
-import { Box, Typography, FormControl, Select, MenuItem } from "@mui/material";
+import {
+  Box,
+  Typography,
+  FormControl,
+  Select,
+  MenuItem,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 import { useState, useEffect } from "react";
 import FileDropZone from "@/components/common/FileDropZone";
 import { ParameterMappingModal } from "./index";
 import { useCSVProcessor } from "@/hooks/useCSVProcessor";
-import { EXOPLANET_SCHEMA, EXOPLANET_SCHEMA_EXTENDED } from "@/config/exoplanetSchema";
+import { usePrediction } from "@/hooks/usePrediction";
+import {
+  EXOPLANET_SCHEMA,
+  EXOPLANET_SCHEMA_EXTENDED,
+} from "@/config/exoplanetSchema";
 import ActionButtons from "../common/FileDropZone/ActionButtons";
-import { ResultsTable } from "../common/ResultsTable";
 
 export default function AnalysisContent() {
   const [, setSelectedFile] = useState<File | null>(null);
   const [showMappingModal, setShowMappingModal] = useState(false);
   const [selectedModel, setSelectedModel] = useState<string>("simple");
+  const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
 
   const {
     csvData,
@@ -29,6 +41,8 @@ export default function AnalysisContent() {
     },
   });
 
+  const { predictionState, makePrediction, resetPrediction } = usePrediction();
+
   const handleFilesSelected = async (files: File[]) => {
     if (files.length > 0) {
       setSelectedFile(files[0]);
@@ -40,20 +54,45 @@ export default function AnalysisContent() {
     setSelectedFile(null);
     setShowMappingModal(false);
     reset();
+    resetPrediction();
   };
 
-  const handleAnalyzeWithAI = () => {
-    if(selectedModel === "simple") {
-        const data = { mappings, csvData }
-
-        console.log(data);
+  const handleAnalyzeWithAI = async () => {
+    if (
+      !csvData ||
+      !isMappingComplete(
+        selectedModel === "simple"
+          ? EXOPLANET_SCHEMA
+          : EXOPLANET_SCHEMA_EXTENDED
+      )
+    ) {
+      setShowErrorSnackbar(true);
+      return;
     }
-    // Aquí puedes implementar la lógica de análisis con los datos mapeados
-  };
 
-  const handleUseExampleData = () => {
-    console.log("Usar datos de ejemplo");
-    // Aquí puedes cargar datos de ejemplo
+    try {
+      // Prepare data for API
+      const predictionData = {
+        mappings: mappings.map((mapping) => ({
+          schemaId: mapping.schemaId,
+          csvColumn: mapping.csvColumn,
+        })),
+        csvData: {
+          headers: csvData.headers,
+          rows: csvData.rows,
+          totalRows: csvData.totalRows,
+        },
+      };
+
+      // Make prediction
+      await makePrediction(
+        predictionData,
+        selectedModel as "simple" | "complex"
+      );
+    } catch (error) {
+      console.error("Error making prediction:", error);
+      setShowErrorSnackbar(true);
+    }
   };
 
   const handleMappingChange = (schemaId: string, csvColumn: string) => {
@@ -78,13 +117,12 @@ export default function AnalysisContent() {
     setShowMappingModal(true);
   };
 
-
-  // Reiniciar datos y mapeos cuando cambie el modelo
   useEffect(() => {
     reset();
+    resetPrediction();
     // setSelectedFile(null);
     setShowMappingModal(false);
-  }, [selectedModel]);
+  }, [selectedModel, reset, resetPrediction]);
 
   // Initialize mappings when CSV is processed
   useEffect(() => {
@@ -100,7 +138,7 @@ export default function AnalysisContent() {
   return (
     <Box sx={{ padding: "8rem 4rem", maxWidth: "1220px", mx: "auto" }}>
       <Typography variant="h2" sx={{ mt: "3rem", textAlign: "center" }}>
-        Análisis de Datos
+        Data Analysis
       </Typography>
       <Typography
         variant="body2"
@@ -111,7 +149,7 @@ export default function AnalysisContent() {
           textAlign: "center",
         }}
       >
-        Carga y analiza tus datos para detectar exoplanetas con IA
+        Load and analyze your data to detect exoplanets with AI
       </Typography>
       {/* Model Selector */}
       <Box sx={{ mb: "2rem" }}>
@@ -165,11 +203,15 @@ export default function AnalysisContent() {
           </Select>
         </FormControl>
         <ActionButtons
-          hasFiles={!!csvData && isMappingComplete(
-            selectedModel === "simple"
-              ? EXOPLANET_SCHEMA
-              : EXOPLANET_SCHEMA_EXTENDED
-          )}
+          hasFiles={
+            !!csvData &&
+            isMappingComplete(
+              selectedModel === "simple"
+                ? EXOPLANET_SCHEMA
+                : EXOPLANET_SCHEMA_EXTENDED
+            )
+          }
+          isLoading={predictionState.isLoading}
           onAnalyzeWithAI={handleAnalyzeWithAI}
         />
         {/* FileDropZone - always visible */}
@@ -177,16 +219,131 @@ export default function AnalysisContent() {
       <FileDropZone
         onFilesSelected={handleFilesSelected}
         onAnalyzeWithAI={handleAnalyzeWithAI}
-        onUseExampleData={handleUseExampleData}
         onEditFile={csvData ? () => handleEditFile() : undefined}
         onFileRemoved={handleFileRemoved}
         processedFiles={csvData ? [true] : []}
         maxFileSize={100}
-        acceptedTypes={[".csv", ".txt"]}
+        acceptedTypes={[".csv"]}
         maxFiles={1}
       />
 
-      <ResultsTable datasets={[]} onViewDataset={() => {}} />
+      {/* Results Section */}
+      {predictionState.isComplete && predictionState.result && (
+        <Box sx={{ mt: "3rem" }}>
+          <Typography
+            variant="h3"
+            sx={{ fontWeight: 500, fontSize: "2.4rem", mb: "2rem" }}
+          >
+            Analysis Results
+          </Typography>
+
+          <Box
+            sx={{
+              border: "1px solid",
+              borderColor: "grey.200",
+              borderRadius: "1rem",
+              padding: "2rem",
+              display: "flex",
+              flexDirection: "row",
+              gap: "2rem",
+              flexWrap: "wrap",
+              backgroundColor: "rgba(95, 120, 231, 0.1)",
+            }}
+          >
+            {predictionState.result.results.map(({ search_id, prediction }) => (
+              <>
+                <Box
+                  sx={{
+                    padding: "2rem",
+                    backgroundColor: "common.white",
+                    borderRadius: "1rem",
+                    border: "1px solid",
+                    borderColor: "grey.200",
+                    flex: 1,
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "secondary.dark", fontWeight: 500 }}
+                  >
+                    {search_id}
+                  </Typography>
+
+                  <Typography
+                    variant="subtitle2"
+                    component="div"
+                    sx={{
+                      bgcolor:
+                        prediction === 1 ? "secondary.light" : "grey.200",
+                      padding: "0.5rem 1rem",
+                      borderRadius: "1rem",
+                      fontSize: "1rem",
+                      color: "white",
+                      mt: "1rem",
+                    }}
+                  >
+                    {prediction === 1 ? "exoplanet" : "not Exoplanet"}
+                  </Typography>
+                </Box>
+              </>
+            ))}
+          </Box>
+        </Box>
+      )}
+
+      {/* Loading State */}
+      {predictionState.isLoading && (
+        <Box
+          sx={{
+            mt: "3rem",
+            p: "3rem",
+            textAlign: "center",
+            backgroundColor: "grey.50",
+            borderRadius: "1rem",
+            border: "1px solid",
+            borderColor: "grey.200",
+          }}
+        >
+          <Typography variant="h4" sx={{ mb: "2rem", color: "primary.main" }}>
+            Procesando con IA...
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Analizando tus datos con el modelo{" "}
+            {selectedModel === "simple" ? "rápido" : "complejo"}
+          </Typography>
+        </Box>
+      )}
+
+      {/* Error State */}
+      {predictionState.error && (
+        <Box sx={{ mt: "3rem" }}>
+          <Alert severity="error" sx={{ borderRadius: "1rem" }}>
+            <Typography variant="h6" sx={{ mb: "0.5rem" }}>
+              Error en el Análisis
+            </Typography>
+            <Typography variant="body2">{predictionState.error}</Typography>
+          </Alert>
+        </Box>
+      )}
+
+      {/* Backend Errors */}
+      {predictionState.result?.errors &&
+        predictionState.result.errors.length > 0 && (
+          <Box sx={{ mt: "2rem" }}>
+            <Alert severity="warning" sx={{ borderRadius: "1rem" }}>
+              <Typography variant="h6" sx={{ mb: "0.5rem" }}>
+                Errores en las Predicciones
+              </Typography>
+              <Box sx={{ maxHeight: "200px", overflowY: "auto" }}>
+                {predictionState.result.errors.map((error, index) => (
+                  <Typography key={index} variant="body2" sx={{ mb: "0.5rem" }}>
+                    • {error}
+                  </Typography>
+                ))}
+              </Box>
+            </Alert>
+          </Box>
+        )}
 
       {/* Step 2: Mapping Modal */}
       {csvData && (
@@ -210,6 +367,22 @@ export default function AnalysisContent() {
           mappedData={mappedData}
         />
       )}
+
+      {/* Error Snackbar */}
+      <Snackbar
+        open={showErrorSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setShowErrorSnackbar(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setShowErrorSnackbar(false)}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          Por favor, completa el mapeo de parámetros antes de analizar
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

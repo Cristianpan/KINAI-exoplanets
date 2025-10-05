@@ -79,7 +79,7 @@ export const Header = () => {
             },
           }}
           component={Link}
-          href="#"
+          href="/analysis"
         >
           Begin Analysis
         </Button>

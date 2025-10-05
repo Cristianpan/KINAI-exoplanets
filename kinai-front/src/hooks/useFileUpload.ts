@@ -23,7 +23,7 @@ interface UseFileUploadReturn {
 
 export const useFileUpload = ({
   maxFileSize = 100,
-  acceptedTypes = [".csv", ".txt"],
+  acceptedTypes = [".csv"],
   maxFiles = 5,
   onFilesSelected,
   onFileRemoved,

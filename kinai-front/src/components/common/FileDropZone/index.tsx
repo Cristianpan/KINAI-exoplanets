@@ -22,8 +22,8 @@ const FileDropZone = ({
   onFileRemoved,
   processedFiles = [],
   maxFileSize = 100,
-  acceptedTypes = [".csv", ".txt"],
-  maxFiles = 5
+  acceptedTypes = [".csv"],
+  maxFiles = 1
 }: FileDropZoneProps) => {
   const {
     selectedFiles,
@@ -60,7 +60,7 @@ const FileDropZone = ({
           },
         }}
       />
-      <Box sx={{p: "3rem", backgroundColor: "grey.100", borderRadius: "1rem", border: "1px solid", borderColor: "grey.200"}}>
+      <Box sx={{p: "3rem", backgroundColor: "grey.50", borderRadius: "1rem", border: "1px solid", borderColor: "grey.200"}}>
         <input
           id="file-input"
           type="file"

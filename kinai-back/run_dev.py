@@ -12,13 +12,6 @@ if __name__ == "__main__":
     
     print("🚀 Starting development server...")
     print("📍 URL: http://localhost:5000")
-    print("🔧 Mode: Development (Debug enabled)")
-    print("📋 Available routes:")
-    print("   - GET  /schemas (available schemas)")
-    print("   - GET  /schemas/<name> (specific schema)")
-    print("   - POST /deep-predict (deep model)")
-    print("   - POST /fast-predict (fast model)")
-    print("\n" + "="*50)
     
     app.run(
         host='127.0.0.1',  # localhost only in development

@@ -1,117 +1,111 @@
 """
-Prediction routes for KINAI Exoplanets API
+Prediction routes for KINAI Exoplanets API - Simplified Version with Pandas
 """
-import json
-import io
-from flask import Blueprint, request, jsonify, send_file
+
+import pandas as pd
+import numpy as np
+from flask import Blueprint, request, jsonify
 from classes.prediction import predictor
-from app.schemas import get_schema
-from app.services.unified_csv_service import process_csv_with_predictions, get_prediction_summary
 
 prediction_blueprint = Blueprint("prediction", __name__, url_prefix="/")
 
 
 @prediction_blueprint.route("/deep-predict", methods=["POST"])
 def deep_predict():
-    """
-    Endpoint para procesar predicciones con Deep Learning
-    
-    Soporta:
-    - CSV con esquemas dinámicos
-    - JSON con features (legacy)
-    """
     try:
-        # Verificar si es una petición con archivo CSV o con features JSON (legacy)
-        if 'csv_file' in request.files:
-            # Nuevo flujo: procesamiento de CSV
-            csv_file = request.files['csv_file']
-            if csv_file.filename == '':
-                return jsonify({"error": "No file selected"}), 400
-            
-            # Verificar extensión del archivo
-            if not csv_file.filename.lower().endswith('.csv'):
-                return jsonify({"error": "File must be a CSV"}), 400
-            
-            # Leer el contenido del CSV
-            csv_content = csv_file.read()
-            
-            # Obtener parámetros desde el formulario
-            column_mapping_str = request.form.get('column_mapping')
-            schema_str = request.form.get('schema')
-            schema_name = request.form.get('schema_name', 'default')
-            return_summary = request.form.get('return_summary', 'false').lower() == 'true'
-            
-            if not column_mapping_str:
-                return jsonify({"error": "Missing column mapping (column_mapping)"}), 400
-            
-            try:
-                column_mapping = json.loads(column_mapping_str)
-            except json.JSONDecodeError:
-                return jsonify({"error": "Column mapping is not valid JSON"}), 400
-            
-            # Determinar el esquema a usar
-            schema = None
-            if schema_str:
-                try:
-                    schema = json.loads(schema_str)
-                except json.JSONDecodeError:
-                    return jsonify({"error": "Schema is not valid JSON"}), 400
-            else:
-                try:
-                    schema = get_schema(schema_name)
-                except ValueError as e:
-                    return jsonify({"error": str(e)}), 400
-            
-            # Procesar según el tipo de respuesta solicitada
-            if return_summary:
-                response, status = get_prediction_summary(csv_content, column_mapping, schema, 'deep')
-                return jsonify(response), status
-            else:
-                csv_bytes, status = process_csv_with_predictions(csv_content, column_mapping, schema, 'deep')
-                
-                if status != 200:
-                    return jsonify(csv_bytes), status
-                
-                output = io.BytesIO(csv_bytes)
-                output.seek(0)
-                
-                return send_file(
-                    output,
-                    mimetype='text/csv',
-                    as_attachment=True,
-                    download_name='deep_predictions.csv'
-                )
-        else:
-            # Flujo legacy: procesamiento con features JSON
-            data = request.get_json()
-            if not data or "features" not in data:
-                return jsonify({"error": "Missing 'features' field in POST body"}), 400
+        data = request.get_json()
+        print(f"Deep predict - Received data: {data}")
+        if not data:
+            return jsonify({"error": "No data received"}), 400
 
-            features = data["features"]
-            result = predictor.deep_predict(features)
-            return jsonify({"prediction": result})
-            
+        if "csvData" not in data:
+            return jsonify({"error": "Missing 'csvData' field"}), 400
+
+        csv_data = data["csvData"]
+        if "rows" not in csv_data or "headers" not in csv_data:
+            return jsonify({"error": "Missing 'rows' or 'headers' in csvData"}), 400
+
+        df = pd.DataFrame(csv_data["rows"], columns=csv_data["headers"])
+
+        numeric_columns = []
+        for col in df.columns:
+            if col != "":  # Ignorar columnas vacías
+                try:
+                    df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
+                    numeric_columns.append(col)
+                except:
+                    # Si no se puede convertir a numérico, usar 0
+                    df[col] = 0.0
+                    numeric_columns.append(col)
+
+        if not numeric_columns:
+            return jsonify({"error": "No numeric columns found for prediction"}), 400
+
+        features_df = df[numeric_columns]
+
+        predictions = []
+        errors = []
+        for index, row in features_df.iterrows():
+            try:
+                features = row.values.tolist()
+                print(f"Deep predict - Row {index}: features = {features}")
+                prediction = predictor.deep_predict(features)
+                print(f"Deep predict - Row {index}: prediction = {prediction}")
+                predictions.append(prediction[0])  # Tomar el primer elemento del array
+            except Exception as e:
+                error_msg = f"Row {index}: {str(e)}"
+                print(f"Deep predict error - {error_msg}")
+                errors.append(error_msg)
+                predictions.append(None)  # Marcar como error
+
+        return jsonify(
+            {
+                "predictions": predictions,
+                "total_predictions": len(predictions),
+                "successful_predictions": len(
+                    [p for p in predictions if p is not None]
+                ),
+                "errors": errors,
+                "dataframe_info": {
+                    "total_rows": len(df),
+                    "numeric_columns": numeric_columns,
+                    "column_count": len(numeric_columns),
+                },
+            }
+        )
+
     except Exception as e:
         return jsonify({"error": f"Error interno del servidor: {str(e)}"}), 500
 
 
 @prediction_blueprint.route("/fast-predict", methods=["POST"])
-
 def fast_predict():
-    """
-    Endpoint limpio para procesar predicciones con Modelo Rápido usando JSON en el body
-    """
     try:
+        print("=== DEBUG: /fast-predict endpoint called ===")
         data = request.get_json()
+        print(f"Data received: {type(data)}")
+        if data:
+            print(f"Keys in data: {list(data.keys())}")
         if not data:
-            return jsonify({"error": "No JSON data received"}), 400
+            return jsonify({"error": "No data received"}), 400
 
-        features = data.get("features")
-        if features is None:
-            return jsonify({"error": "Missing 'features' field"}), 400
+        if "csvData" not in data:
+            return jsonify({"error": "Missing 'csvData' field"}), 400
 
-        result = predictor.fast_predict(features)
-        return jsonify({"prediction": result})
+        csv_data = data["csvData"]
+        if "rows" not in csv_data or "headers" not in csv_data:
+            return jsonify({"error": "Missing 'rows' or 'headers' in csvData"}), 400
+
+        df = pd.DataFrame(csv_data["rows"], columns=csv_data["headers"])
+
+        xs = df.loc[:, "ror":"transit_epoch"].to_numpy()
+        preds = predictor.fast_predict(xs)
+
+        df["prediction"] = preds
+        result_df = df[["search_id", "prediction"]]
+        result_json = result_df.to_dict(orient="records")
+
+        return jsonify({"results": result_json})
 
     except Exception as e:
         return jsonify({"error": f"Internal server error: {str(e)}"}), 500

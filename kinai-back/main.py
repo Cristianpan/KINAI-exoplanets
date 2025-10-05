@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from app.routes.schema_routes import schema_blueprint
+from flask_cors import CORS
 from app.routes.prediction_routes import prediction_blueprint
 from config import config
 
@@ -10,8 +10,10 @@ app = Flask(__name__)
 config_name = os.getenv('FLASK_ENV', 'development')
 app.config.from_object(config[config_name])
 
+# Configure CORS
+CORS(app, origins=['http://localhost:3000', 'http://127.0.0.1:3000'])
+
 # Register blueprints
-app.register_blueprint(schema_blueprint)
 app.register_blueprint(prediction_blueprint)
 
 if __name__ == "__main__":

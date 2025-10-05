@@ -19,15 +19,16 @@ class Predict:
         """
         Realiza predicción con el modelo profundo (.h5)
         """
-        X = np.array([features], dtype=float)  # Asegura formato correcto
+        X = np.array([features], dtype=float)
         pred = self.deep_model.predict(X)
         return pred.tolist()
 
     def fast_predict(self, features):
-        """
-        Realiza predicción con el modelo rápido (.pkl)
-        """
-        X = np.array([features], dtype=float)
+        if isinstance(features, np.ndarray) and features.ndim == 2:
+            X = features.astype(float)
+        else:
+            X = np.array([features], dtype=float)
+        
         pred = self.fast_model.predict(X)
         return pred.tolist()
 

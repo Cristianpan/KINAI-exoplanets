@@ -1,15 +1,15 @@
-import { Button } from "@mui/material";
-import { AutoFixHigh, ConstructionOutlined } from "@mui/icons-material";
-import { CSVData } from "@/interfaces/columnMapping";
-
+import { Button, CircularProgress } from "@mui/material";
+import { AutoFixHigh } from "@mui/icons-material";
 interface ActionButtonsProps {
   hasFiles: boolean;
+  isLoading?: boolean;
   onAnalyzeWithAI?: () => void;
   onUseExampleData?: () => void;
 }
 
 export default function ActionButtons({
   hasFiles,
+  isLoading = false,
   onAnalyzeWithAI,
 }: ActionButtonsProps) {
   return (
@@ -17,8 +17,8 @@ export default function ActionButtons({
       {onAnalyzeWithAI && (
         <Button
           onClick={onAnalyzeWithAI}
-          disabled={!hasFiles}
-          startIcon={<AutoFixHigh />}
+          disabled={!hasFiles || isLoading}
+          startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <AutoFixHigh />}
           color="secondary"
           variant="contained"
           size="large"
@@ -27,7 +27,7 @@ export default function ActionButtons({
             p: "1rem 2rem"
           }}
         >
-          Analyze with AI
+          {isLoading ? "Procesando..." : "Analyze with AI"}
         </Button>
       )}
     </>
