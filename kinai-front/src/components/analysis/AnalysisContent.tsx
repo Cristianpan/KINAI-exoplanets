@@ -304,12 +304,12 @@ export default function AnalysisContent() {
             borderColor: "grey.200",
           }}
         >
-          <Typography variant="h4" sx={{ mb: "2rem", color: "primary.main" }}>
-            Procesando con IA...
+          <Typography variant="h4" sx={{ mb: "1rem", color: "secondary.dark" }}>
+            Processing with AI...
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            Analizando tus datos con el modelo{" "}
-            {selectedModel === "simple" ? "rápido" : "complejo"}
+            Analyzing your data with the {" "}
+            {selectedModel === "simple" ? "simple" : "complex"} model
           </Typography>
         </Box>
       )}
@@ -380,7 +380,7 @@ export default function AnalysisContent() {
           severity="error"
           sx={{ width: "100%" }}
         >
-          Por favor, completa el mapeo de parámetros antes de analizar
+          Please complete the parameter mapping before analyzing.
         </Alert>
       </Snackbar>
     </Box>
