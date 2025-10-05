@@ -15,8 +15,6 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { id: "inicio", label: "Inicio", href: "/" },
   { id: "analisis", label: "Análisis", href: "/analysis" },
-  { id: "entrenamiento", label: "Entrenamiento", href: "/training", fontSize: "1.8rem" },
-  { id: "modelos", label: "Modelos", href: "/models" },
 ];
 
 const NAVBAR_STYLES = {
@@ -52,7 +50,7 @@ const NAVBAR_STYLES = {
     transition: "color 0.3s ease",
   },
   logoText: {
-    fontSize: "2.8rem",
+    fontSize: "2.2rem",
     fontWeight: 600,
     transition: "color 0.3s ease",
   },

@@ -89,7 +89,12 @@ export const useCSVProcessor = ({ onDataProcessed, onMappingComplete }: UseCSVPr
             if (schema) {
               switch (schema.dataType) {
                 case 'number':
-                  convertedValue = parseFloat(value) || 0;
+                  const parsed = parseFloat(value);
+                  convertedValue = isNaN(parsed) ? 0 : parsed;
+                  // Debug log for number conversion issues
+                  if (value && isNaN(parsed)) {
+                    console.warn(`Failed to parse number: "${value}" for column ${mapping.csvColumn}`);
+                  }
                   break;
                 case 'boolean':
                   convertedValue = value.toLowerCase() === 'true' || value === '1';

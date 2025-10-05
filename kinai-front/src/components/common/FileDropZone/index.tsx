@@ -3,13 +3,13 @@ import { Box, GlobalStyles } from "@mui/material";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import UploadZone from "./UploadZone";
 import FileList from "./FileList";
-import ActionButtons from "./ActionButtons";
 
 interface FileDropZoneProps {
   onFilesSelected: (files: File[]) => void;
   onAnalyzeWithAI?: () => void;
   onUseExampleData?: () => void;
   onEditFile?: (index: number) => void;
+  onFileRemoved?: () => void;
   processedFiles?: boolean[];
   maxFileSize?: number;
   acceptedTypes?: string[];
@@ -18,9 +18,8 @@ interface FileDropZoneProps {
 
 const FileDropZone = ({
   onFilesSelected,
-  onAnalyzeWithAI,
-  onUseExampleData,
   onEditFile,
+  onFileRemoved,
   processedFiles = [],
   maxFileSize = 100,
   acceptedTypes = [".csv", ".txt"],
@@ -41,6 +40,7 @@ const FileDropZone = ({
     acceptedTypes,
     maxFiles,
     onFilesSelected,
+    onFileRemoved,
   });
 
 
@@ -60,11 +60,7 @@ const FileDropZone = ({
           },
         }}
       />
-      <Box sx={{
-        width: "100%",
-        maxWidth: "800px",
-        mx: "auto",
-      }}>
+      <Box sx={{p: "3rem", backgroundColor: "grey.100", borderRadius: "1rem", border: "1px solid", borderColor: "grey.200"}}>
         <input
           id="file-input"
           type="file"
@@ -93,12 +89,6 @@ const FileDropZone = ({
           onRemoveFile={removeFile}
           onEditFile={onEditFile}
           processedFiles={processedFiles}
-        />
-
-        <ActionButtons
-          hasFiles={selectedFiles.length > 0}
-          onAnalyzeWithAI={onAnalyzeWithAI}
-          onUseExampleData={onUseExampleData}
         />
       </Box>
     </>

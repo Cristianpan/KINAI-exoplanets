@@ -1,15 +1,16 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, FormControl, Select, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
 import FileDropZone from "@/components/common/FileDropZone";
 import { ParameterMappingModal } from "./index";
 import { useCSVProcessor } from "@/hooks/useCSVProcessor";
 import { EXOPLANET_SCHEMA } from "@/config/exoplanetSchema";
-
+import ActionButtons from "../common/FileDropZone/ActionButtons";
 
 export default function AnalysisContent() {
   const [, setSelectedFile] = useState<File | null>(null);
   const [showMappingModal, setShowMappingModal] = useState(false);
+  const [selectedModel, setSelectedModel] = useState<string>("simple");
 
   const {
     csvData,
@@ -20,11 +21,11 @@ export default function AnalysisContent() {
     updateMapping,
     generateMappedData,
     isMappingComplete,
+    reset,
   } = useCSVProcessor({
-    onDataProcessed: (data) => {
-      console.log("CSV procesado:", data);
+    onDataProcessed: () => {
       setShowMappingModal(true);
-    }
+    },
   });
 
   const handleFilesSelected = async (files: File[]) => {
@@ -32,6 +33,12 @@ export default function AnalysisContent() {
       setSelectedFile(files[0]);
       await processCSVFile(files[0]);
     }
+  };
+
+  const handleFileRemoved = () => {
+    setSelectedFile(null);
+    setShowMappingModal(false);
+    reset();
   };
 
   const handleAnalyzeWithAI = () => {
@@ -71,18 +78,84 @@ export default function AnalysisContent() {
   }, [csvData, mappings.length, initializeMappings]);
 
   return (
-    <Box sx={{padding: "8rem 4rem", maxWidth: "1220px", mx: "auto"}}>
-      <Typography variant="h2" sx={{mt: "3rem"}}>Análisis de Datos</Typography>
-      <Typography variant="body2" sx={{mt: "1rem", color: "secondary.dark", mb: "3rem"}}>
+    <Box sx={{ padding: "8rem 4rem", maxWidth: "1220px", mx: "auto" }}>
+      <Typography variant="h2" sx={{ mt: "3rem", textAlign: "center" }}>
+        Análisis de Datos
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          mt: "1rem",
+          color: "secondary.dark",
+          mb: "2rem",
+          textAlign: "center",
+        }}
+      >
         Carga y analiza tus datos para detectar exoplanetas con IA
       </Typography>
-      
-      {/* FileDropZone - always visible */}
+      {/* Model Selector */}
+      <Box sx={{ mb: "2rem" }}>
+        <FormControl sx={{ minWidth: 200, mr: "2rem" }}>
+          <Select
+            id="model-select"
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+            displayEmpty
+            sx={{
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "#E0E0E0",
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "secondary.main",
+              },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "secondary.main",
+              },
+              "& .MuiSelect-select": {
+                p: "1rem",
+              },
+            }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  backgroundColor: "common.white",
+                  "& .MuiMenuItem-root": {
+                    fontSize: "1.2rem",
+                    "&.Mui-selected": {
+                      backgroundColor: "secondary.light",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "secondary.light",
+                      },
+                    },
+                    "&:hover": {
+                      backgroundColor: "rgba(112, 135, 234, 0.1)",
+                    },
+                  },
+                },
+              },
+            }}
+          >
+            <MenuItem value="simple">
+              <Typography sx={{ fontSize: "1.6rem" }}>Simple</Typography>
+            </MenuItem>
+            <MenuItem value="complex">
+              <Typography sx={{ fontSize: "1.6rem" }}>Complex</Typography>
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <ActionButtons
+          hasFiles={!!csvData}
+          onAnalyzeWithAI={handleAnalyzeWithAI}
+        />
+        {/* FileDropZone - always visible */}
+      </Box>
       <FileDropZone
         onFilesSelected={handleFilesSelected}
         onAnalyzeWithAI={handleAnalyzeWithAI}
         onUseExampleData={handleUseExampleData}
         onEditFile={csvData ? () => handleEditFile() : undefined}
+        onFileRemoved={handleFileRemoved}
         processedFiles={csvData ? [true] : []}
         maxFileSize={100}
         acceptedTypes={[".csv", ".txt"]}

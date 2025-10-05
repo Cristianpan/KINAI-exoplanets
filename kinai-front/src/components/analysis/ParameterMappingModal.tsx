@@ -93,6 +93,19 @@ export default function ParameterMappingModal({
     return { mapped: mappedRequired.length, total: requiredSchemas.length };
   };
 
+  // Get columns that are already mapped to other parameters
+  const getUsedColumns = (currentSchemaId: string) => {
+    return mappings
+      .filter(mapping => mapping.schemaId !== currentSchemaId && mapping.mapped && mapping.csvColumn)
+      .map(mapping => mapping.csvColumn);
+  };
+
+  // Check if a column is available for selection
+  const isColumnAvailable = (column: string, currentSchemaId: string) => {
+    const usedColumns = getUsedColumns(currentSchemaId);
+    return !usedColumns.includes(column);
+  };
+
   // Generate preview data when modal opens
   useEffect(() => {
     if (open && csvData && mappings.length > 0) {
@@ -116,7 +129,12 @@ export default function ParameterMappingModal({
 
               // Convert based on data type
               if (column.schema?.dataType === "number") {
-                convertedValue = parseFloat(value) || 0;
+                const parsed = parseFloat(value);
+                convertedValue = isNaN(parsed) ? 0 : parsed;
+                // Debug log for number conversion issues
+                if (value && isNaN(parsed)) {
+                  console.warn(`Failed to parse number: "${value}" for column ${column.csvColumn}`);
+                }
               } else if (column.schema?.dataType === "boolean") {
                 convertedValue =
                   value.toLowerCase() === "true" || value === "1";
@@ -297,6 +315,40 @@ export default function ParameterMappingModal({
                             </Typography>
                           </Box>
                         )}
+                        {(() => {
+                          const usedColumns = getUsedColumns(schema.id);
+                          if (usedColumns.length > 0) {
+                            return (
+                              <Box sx={{ mt: 1 }}>
+                                <Typography
+                                  variant="caption"
+                                  sx={{
+                                    color: "#FF9800",
+                                    fontWeight: "bold",
+                                    display: "block",
+                                    mb: 0.5
+                                  }}
+                                >
+                                  Columnas en uso por otros parámetros:
+                                </Typography>
+                                {usedColumns.map((column, idx) => (
+                                  <Typography
+                                    key={idx}
+                                    variant="caption"
+                                    sx={{
+                                      color: "#F57C00",
+                                      display: "block",
+                                      ml: 1
+                                    }}
+                                  >
+                                    • {column}
+                                  </Typography>
+                                ))}
+                              </Box>
+                            );
+                          }
+                          return null;
+                        })()}
                       </Box>
                     }
                     arrow
@@ -359,22 +411,76 @@ export default function ParameterMappingModal({
                         Seleccionar columna
                       </Typography>
                     </MenuItem>
-                    {csvData?.headers.map((column) => (
-                      <MenuItem key={column} value={column}>
-                        <Typography sx={{ fontSize: "1.2rem" }}>
-                          {column}
-                        </Typography>
-                      </MenuItem>
-                    ))}
+                    {csvData?.headers.map((column) => {
+                      const isAvailable = isColumnAvailable(column, schema.id);
+                      const isCurrentlySelected = mapping?.csvColumn === column;
+                      
+                      return (
+                        <MenuItem 
+                          key={column} 
+                          value={column}
+                          disabled={!isAvailable && !isCurrentlySelected}
+                          sx={{
+                            opacity: isAvailable || isCurrentlySelected ? 1 : 0.5,
+                            '&.Mui-disabled': {
+                              color: '#999',
+                              fontStyle: 'italic'
+                            }
+                          }}
+                        >
+                          <Typography sx={{ fontSize: "1.2rem" }}>
+                            {column}
+                            {!isAvailable && !isCurrentlySelected && (
+                              <Typography 
+                                component="span" 
+                                sx={{ 
+                                  fontSize: "1rem", 
+                                  color: "#999", 
+                                  ml: 1,
+                                  fontStyle: "italic"
+                                }}
+                              >
+                                (ya en uso)
+                              </Typography>
+                            )}
+                          </Typography>
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                 </FormControl>
+                {(() => {
+                  const availableColumns = csvData?.headers.filter(column => 
+                    isColumnAvailable(column, schema.id)
+                  ).length || 0;
+                  const totalColumns = csvData?.headers.length || 0;
+                  
+                  if (totalColumns > 0) {
+                    return (
+                      <Typography 
+                        variant="caption" 
+                        sx={{ 
+                          color: availableColumns > 0 ? "#4CAF50" : "#F57C00",
+                          fontSize: "0.75rem",
+                          mt: 0.5,
+                          display: "block"
+                        }}
+                      >
+                        {availableColumns} de {totalColumns} columnas disponibles
+                      </Typography>
+                    );
+                  }
+                  return null;
+                })()}
               </Box>
             );
           })}
         </Box>
-        {getPreviewData()
-          .slice(0, 10)
-          .map((row, idx) => (
+        {csvData?.rows.slice(0, 10).map((row, idx) => {
+          const previewData = getPreviewData();
+          const mappedRow = previewData[idx] || {};
+          
+          return (
             <Box
               key={idx}
               sx={{
@@ -399,7 +505,7 @@ export default function ParameterMappingModal({
 
               {schemas.map((schema, index) => {
                 const mapping = mappings.find((m) => m.schemaId === schema.id);
-                const value = mapping?.csvColumn ? row[schema.id] : null;
+                const value = mapping?.csvColumn ? mappedRow[schema.id] : null;
                 return (
                   <Typography
                     key={index}
@@ -416,14 +522,15 @@ export default function ParameterMappingModal({
                       
                     }}
                   >
-                    {mapping?.csvColumn
+                    {mapping?.csvColumn && value !== null && value !== undefined
                       ? String(formatValue(value, schema.dataType))
                       : "-"}
                   </Typography>
                 );
               })}
             </Box>
-          ))}
+          );
+        })}
       </DialogContent>
 
       <DialogActions

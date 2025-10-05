@@ -29,7 +29,7 @@ export const ExoplanetsSection: React.FC<ExoplanetsSectionProps> = ({ exoplanets
         component="section"
         id="exoplanets"
         sx={{
-          padding: "4rem",
+          padding: "2rem 4rem",
           display: "flex",
           flexDirection: "column",
           gap: 2,
@@ -37,8 +37,7 @@ export const ExoplanetsSection: React.FC<ExoplanetsSectionProps> = ({ exoplanets
           alignItems: "center",
           mx: "auto",
           maxWidth: "1024px",
-          minHeight: "100vh",
-          scrollSnapAlign: "start",
+          minHeight: "80vh",
         }}
       >
         <Typography
