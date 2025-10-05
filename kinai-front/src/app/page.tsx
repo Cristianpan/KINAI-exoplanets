@@ -21,7 +21,7 @@ export default function Home() {
       temperature: 265,
       orbitalPeriod: 384.8,
       isVerified: true,
-      habitability: "Potencialmente Habitable",
+  habitability: "Potentially Habitable",
       planetType: "Super Earth",
       points: [
         0.0598390556480752, 0.13364872772148528, 0.12747540906546662,
@@ -67,7 +67,7 @@ export default function Home() {
       temperature: 234,
       orbitalPeriod: 11.2,
       isVerified: false,
-      habitability: "No Verificado",
+  habitability: "Not Verified",
       planetType: "Terrestrial",
       points: [
         0.4321008216256368, 0.2384604509332056, -0.3464955709490876,
@@ -113,7 +113,7 @@ export default function Home() {
       temperature: 251,
       orbitalPeriod: 6.1,
       isVerified: true,
-      habitability: "Potencialmente Habitable",
+  habitability: "Potentially Habitable",
       planetType: "Terrestrial",
       points: [
         2.921162614213047e-5, 2.921162614213047e-5, 0.00012972097386538566,

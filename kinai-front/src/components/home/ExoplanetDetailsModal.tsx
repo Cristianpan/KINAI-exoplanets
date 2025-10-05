@@ -35,17 +35,17 @@ export const ExoplanetDetailsModal: React.FC<ExoplanetDetailsModalProps> = ({
   const dataCards = [
     {
       icon: <HourglassEmptyRoundedIcon sx={{ fontSize: "2.5rem", color: "#7087ea" }} />,
-      title: "Periodo Orbital",
-      value: `${exoplanet.orbitalPeriod} días`,
+      title: "Orbital Period",
+      value: `${exoplanet.orbitalPeriod} days`,
     },
     {
       icon: <SquareFootOutlinedIcon sx={{ fontSize: "2.5rem", color: "#00BFFF" }} />,
-      title: "Radio",
+      title: "Radius",
       value: `${exoplanet.radius} R⊕`,
     },
     {
       icon: <DeviceThermostatOutlinedIcon sx={{ fontSize: "2.5rem", color: "#00CED1" }} />,
-      title: "Temperatura",
+      title: "Temperature",
       value: `${exoplanet.temperature} K`,
     },
     {
@@ -54,8 +54,8 @@ export const ExoplanetDetailsModal: React.FC<ExoplanetDetailsModalProps> = ({
       ) : (
         <PublicRoundedIcon sx={{ fontSize: "2.5rem", color: "#FF9800" }} />
       ),
-      title: "Habitabilidad",
-      value: exoplanet.habitability || (exoplanet.isVerified ? "Potencialmente Habitable" : "No Verificado"),
+      title: "Habitability",
+      value: exoplanet.habitability || (exoplanet.isVerified ? "Potentially Habitable" : "Not Verified"),
     },
   ];
 
@@ -117,10 +117,10 @@ export const ExoplanetDetailsModal: React.FC<ExoplanetDetailsModalProps> = ({
                 fontSize: "2rem",
               }}
             >
-              Curva de Luz del Tránsito
+              Transit Light Curve
             </Typography>
             <Tooltip
-              title="La curva de luz muestra la disminución en el brillo de una estrella cuando un exoplaneta pasa frente a ella. Esta técnica permite detectar exoplanetas midiendo las variaciones periódicas en la luminosidad estelar, revelando información sobre el tamaño, período orbital y otros parámetros del planeta."
+              title="The light curve shows the decrease in a star's brightness when an exoplanet passes in front of it. This technique allows the detection of exoplanets by measuring periodic variations in stellar luminosity, revealing information about the planet's size, orbital period, and other parameters."
               arrow
               placement="top"
               componentsProps={{
@@ -171,7 +171,7 @@ export const ExoplanetDetailsModal: React.FC<ExoplanetDetailsModalProps> = ({
               marginBottom: 2,
             }}
           >
-            Datos del Exoplaneta
+            Exoplanet Data
           </Typography>
           
           <Box
