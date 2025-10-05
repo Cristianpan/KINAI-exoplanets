@@ -1,5 +1,4 @@
-"use client";
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { AutoFixHigh } from "@mui/icons-material";
 
 interface ActionButtonsProps {
@@ -13,35 +12,23 @@ export default function ActionButtons({
   onAnalyzeWithAI,
 }: ActionButtonsProps) {
   return (
-    <Box sx={{
-      display: "flex",
-      gap: 2,
-      mt: 3,
-      justifyContent: "center",
-      flexWrap: "wrap",
-    }}>
+    <>
       {onAnalyzeWithAI && (
         <Button
           onClick={onAnalyzeWithAI}
           disabled={!hasFiles}
           startIcon={<AutoFixHigh />}
+          color="secondary"
+          variant="contained"
+          size="large"
           sx={{
-            backgroundColor: "secondary.main",
-            color: "white",
-            px: 3,
-            py: 1.5,
-            borderRadius: 2,
-            textTransform: "none",
-            fontSize: "1rem",
-            fontWeight: 600,
-            "&:hover": {
-              backgroundColor: "secondary.dark",
-            },
+            fontSize: "1.6rem",
+            p: "1rem 2rem"
           }}
         >
-          Analizar con IA
+          Analizar
         </Button>
       )}
-    </Box>
+    </>
   );
 }

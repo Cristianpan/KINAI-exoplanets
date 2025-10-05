@@ -5,6 +5,7 @@ interface UseFileUploadProps {
   acceptedTypes?: string[];
   maxFiles?: number;
   onFilesSelected?: (files: File[]) => void;
+  onFileRemoved?: () => void;
 }
 
 interface UseFileUploadReturn {
@@ -25,6 +26,7 @@ export const useFileUpload = ({
   acceptedTypes = [".csv", ".txt"],
   maxFiles = 5,
   onFilesSelected,
+  onFileRemoved,
 }: UseFileUploadProps = {}): UseFileUploadReturn => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -89,15 +91,22 @@ export const useFileUpload = ({
       const newFiles = selectedFiles.filter((_, index) => index !== indexToRemove);
       setSelectedFiles(newFiles);
       onFilesSelected?.(newFiles);
+      
+      // Call onFileRemoved if no files remain
+      if (newFiles.length === 0) {
+        onFileRemoved?.();
+      }
+      
       setRemovingIndex(null);
     }, 300);
-  }, [selectedFiles, onFilesSelected]);
+  }, [selectedFiles, onFilesSelected, onFileRemoved]);
 
 
   const clearFiles = useCallback(() => {
     setSelectedFiles([]);
     onFilesSelected?.([]);
-  }, [onFilesSelected]);
+    onFileRemoved?.();
+  }, [onFilesSelected, onFileRemoved]);
 
   return {
     selectedFiles,

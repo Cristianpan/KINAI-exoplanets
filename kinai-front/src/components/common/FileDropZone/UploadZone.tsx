@@ -28,13 +28,13 @@ export default function UploadZone({
       elevation={0}
       sx={{
         border: `3px dashed`,
-        borderColor: isDragOver ? "secondary.main" : "grey.400",
+        borderColor: isDragOver ? "secondary.light" : "grey.400",
         borderRadius: 2,
         p: 4,
-        textAlign: "center" as const,
+        textAlign: "center",
         cursor: "pointer",
         transition: "all 0.3s ease",
-        backgroundColor: isDragOver ? "grey.50" : "transparent",
+        backgroundColor: isDragOver ? "grey.50" : "common.white",
         borderStyle: "dashed",
         "&:hover": {
           borderColor: "grey.500",
@@ -50,30 +50,17 @@ export default function UploadZone({
       <CloudUpload sx={{
         fontSize: "4rem",
         color: "secondary.main",
-        mb: 2,
       }} />
       
-      <Typography sx={{
-        fontSize: "1.5rem",
-        fontWeight: 600,
-        color: "primary.dark",
-        mb: 1,
-      }}>
-        Carga de datos
-      </Typography>
-      
-      <Typography sx={{
-        fontSize: "1rem",
+      <Typography variant="body2" sx={{
         color: "grey.600",
-        mb: 2,
+        mb: 1,
       }}>
         Haz clic para cargar o arrastra archivos aquí
       </Typography>
       
-      <Typography sx={{
-        fontSize: "0.875rem",
+      <Typography variant="caption" sx={{
         color: "grey.500",
-        mb: 3,
       }}>
         Formatos soportados: {acceptedTypes.join(", ").toUpperCase()} (máx. {maxFileSize}MB por archivo, {maxFiles} archivos máximo)
       </Typography>
