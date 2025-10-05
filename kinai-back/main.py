@@ -15,6 +15,7 @@ app.config.from_object(config[config_name])
 load_dotenv()
 origins = os.getenv("ALLOWED_ORIGINS", "")
 origins = origins.split(",")
+origins.append("https://kinai-exoplanets.vercel.app/")
 
 # Configure CORS
 CORS(app, origins=origins)

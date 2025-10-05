@@ -11,6 +11,7 @@ app = Flask(__name__)
 load_dotenv()
 origins = os.getenv("ALLOWED_ORIGINS", "")
 origins = origins.split(",")
+origins.append("https://kinai-exoplanets.vercel.app/")
 
 config_name = os.getenv('FLASK_ENV', 'development')
 app.config.from_object(config[config_name])
