@@ -558,23 +558,7 @@ export default function ParameterMappingModal({
         <Button
           onClick={handleConfirm}
           disabled={!isComplete}
-          sx={{
-            background: isComplete
-              ? "linear-gradient(135deg, #00BFFF 0%, #7087ea 100%)"
-              : "#F0F0F0",
-            color: "white",
-            fontWeight: "bold",
-            px: 4,
-            "&:hover": {
-              background: isComplete
-                ? "linear-gradient(135deg, #00A8E8 0%, #5a6fd8 100%)"
-                : "#F0F0F0",
-            },
-            "&:disabled": {
-              color: "#E0E0E0",
-              background: "#F0F0F0",
-            },
-          }}
+          color="secondary"
           variant="contained"
         >
           Confirmar Mapeo

@@ -6,6 +6,7 @@ import { ParameterMappingModal } from "./index";
 import { useCSVProcessor } from "@/hooks/useCSVProcessor";
 import { EXOPLANET_SCHEMA } from "@/config/exoplanetSchema";
 import ActionButtons from "../common/FileDropZone/ActionButtons";
+import { ResultsTable } from "../common/ResultsTable";
 
 export default function AnalysisContent() {
   const [, setSelectedFile] = useState<File | null>(null);
@@ -161,6 +162,8 @@ export default function AnalysisContent() {
         acceptedTypes={[".csv", ".txt"]}
         maxFiles={1}
       />
+
+      <ResultsTable datasets={[]} onViewDataset={() => {}} />
 
       {/* Step 2: Mapping Modal */}
       {csvData && (
