@@ -15,7 +15,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Cosmos explorer",
+  title: "Cosmos Explorer",
   description: "An app to explore the cosmos",
 };
 
