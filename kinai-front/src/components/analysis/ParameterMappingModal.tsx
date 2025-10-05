@@ -140,9 +140,10 @@ export default function ParameterMappingModal({
                   value.toLowerCase() === "true" || value === "1";
               } else if (column.schema?.dataType === "date") {
                 convertedValue = new Date(value);
+              } else if (column.schema?.dataType === "lightcurve") {
+                convertedValue = "Light Curve"
               }
-
-              mappedRow[column.schemaId] = convertedValue;
+                mappedRow[column.schemaId] = convertedValue;
             }
           });
           return mappedRow;
@@ -157,7 +158,7 @@ export default function ParameterMappingModal({
     <Dialog
       open={open}
       onClose={handleClose}
-      maxWidth="md"
+      maxWidth="lg"
       fullWidth
       PaperProps={{
         sx: {
@@ -272,10 +273,11 @@ export default function ParameterMappingModal({
                   borderRight: "1px solid",
                   "&:last-child": { borderRight: "none" },
                   borderColor: "grey.300",
+                  overflowX: "hidden"
                 }}
               >
                 <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                  <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: "bold", fontSize: 14 }}>
                     {schema.label}
                   </Typography>
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import FileDropZone from "@/components/common/FileDropZone";
 import { ParameterMappingModal } from "./index";
 import { useCSVProcessor } from "@/hooks/useCSVProcessor";
-import { EXOPLANET_SCHEMA } from "@/config/exoplanetSchema";
+import { EXOPLANET_SCHEMA, EXOPLANET_SCHEMA_EXTENDED } from "@/config/exoplanetSchema";
 import ActionButtons from "../common/FileDropZone/ActionButtons";
 import { ResultsTable } from "../common/ResultsTable";
 
@@ -43,7 +43,8 @@ export default function AnalysisContent() {
   };
 
   const handleAnalyzeWithAI = () => {
-    console.log("Analizar con IA - Datos mapeados:", mappedData);
+    const data = { mappings, csvData }
+    console.log(data);
     // Aquí puedes implementar la lógica de análisis con los datos mapeados
   };
 
@@ -58,7 +59,10 @@ export default function AnalysisContent() {
 
   const handleConfirmMapping = () => {
     // Generate preview data first
-    generateMappedData(EXOPLANET_SCHEMA, 10);
+    generateMappedData(
+      selectedModel === "simple" ? EXOPLANET_SCHEMA : EXOPLANET_SCHEMA_EXTENDED,
+      10
+    );
     setShowMappingModal(false);
   };
 
@@ -71,12 +75,24 @@ export default function AnalysisContent() {
     setShowMappingModal(true);
   };
 
+
+  // Reiniciar datos y mapeos cuando cambie el modelo
+  useEffect(() => {
+    reset();
+    // setSelectedFile(null);
+    setShowMappingModal(false);
+  }, [selectedModel]);
+
   // Initialize mappings when CSV is processed
   useEffect(() => {
     if (csvData && mappings.length === 0) {
-      initializeMappings(EXOPLANET_SCHEMA);
+      initializeMappings(
+        selectedModel === "simple"
+          ? EXOPLANET_SCHEMA
+          : EXOPLANET_SCHEMA_EXTENDED
+      );
     }
-  }, [csvData, mappings.length, initializeMappings]);
+  }, [csvData, mappings.length, initializeMappings, selectedModel]);
 
   return (
     <Box sx={{ padding: "8rem 4rem", maxWidth: "1220px", mx: "auto" }}>
@@ -146,7 +162,11 @@ export default function AnalysisContent() {
           </Select>
         </FormControl>
         <ActionButtons
-          hasFiles={!!csvData}
+          hasFiles={!!csvData && isMappingComplete(
+            selectedModel === "simple"
+              ? EXOPLANET_SCHEMA
+              : EXOPLANET_SCHEMA_EXTENDED
+          )}
           onAnalyzeWithAI={handleAnalyzeWithAI}
         />
         {/* FileDropZone - always visible */}
@@ -172,10 +192,18 @@ export default function AnalysisContent() {
           onClose={handleCancelMapping}
           onConfirm={handleConfirmMapping}
           csvData={csvData}
-          schemas={EXOPLANET_SCHEMA}
+          schemas={
+            selectedModel === "simple"
+              ? EXOPLANET_SCHEMA
+              : EXOPLANET_SCHEMA_EXTENDED
+          }
           mappings={mappings}
           onMappingChange={handleMappingChange}
-          isComplete={isMappingComplete(EXOPLANET_SCHEMA)}
+          isComplete={isMappingComplete(
+            selectedModel === "simple"
+              ? EXOPLANET_SCHEMA
+              : EXOPLANET_SCHEMA_EXTENDED
+          )}
           mappedData={mappedData}
         />
       )}

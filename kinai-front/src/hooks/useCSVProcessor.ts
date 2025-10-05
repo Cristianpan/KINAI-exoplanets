@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { CSVData, ColumnSchema, ColumnMapping, MappedData } from '@/interfaces/columnMapping';
+import Papa from 'papaparse';
 
 interface UseCSVProcessorProps {
   onDataProcessed?: (data: CSVData) => void;
@@ -13,13 +14,19 @@ export const useCSVProcessor = ({ onDataProcessed, onMappingComplete }: UseCSVPr
   const [isProcessing, setIsProcessing] = useState(false);
 
   const parseCSV = useCallback((csvText: string): CSVData => {
-    const lines = csvText.split('\n').filter(line => line.trim());
-    const headers = lines[0].split(',').map(header => header.trim().replace(/"/g, ''));
-    
-    const rows = lines.slice(1).map(line => {
-      const values = line.split(',').map(value => value.trim().replace(/"/g, ''));
-      return values;
+    const result = Papa.parse(csvText, {
+      header: true, // usa la primera fila como headers
+      skipEmptyLines: true,
     });
+
+    const headers = result.meta.fields || [];
+    const rows = result.data as string[][];
+
+    console.log({
+      headers,
+      rows,
+      totalRows: rows.length
+    })
 
     return {
       headers,
@@ -102,6 +109,8 @@ export const useCSVProcessor = ({ onDataProcessed, onMappingComplete }: UseCSVPr
                 case 'date':
                   convertedValue = new Date(value);
                   break;
+                case 'lightcurve':
+                    convertedValue = "Light Curve"
                 default:
                   convertedValue = String(value);
               }
@@ -129,7 +138,6 @@ export const useCSVProcessor = ({ onDataProcessed, onMappingComplete }: UseCSVPr
   }, [mappings]);
 
   const reset = useCallback(() => {
-    setCsvData(null);
     setMappings([]);
     setMappedData([]);
   }, []);

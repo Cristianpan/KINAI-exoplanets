@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
-import { AutoFixHigh } from "@mui/icons-material";
+import { AutoFixHigh, ConstructionOutlined } from "@mui/icons-material";
+import { CSVData } from "@/interfaces/columnMapping";
 
 interface ActionButtonsProps {
   hasFiles: boolean;
