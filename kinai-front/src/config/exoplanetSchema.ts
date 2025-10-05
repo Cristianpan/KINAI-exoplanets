@@ -1,36 +1,161 @@
 import { ColumnSchema } from '@/interfaces/columnMapping';
 
+/**
+ * search_id	
+ * num_planet	
+ * disposition	
+ * ror	
+ * stellar_mass	
+ * ss_gravity	
+ * period	
+ * duration	
+ * transit_epoch	
+ * global_view	
+ * local_view
+**/
+
 export const EXOPLANET_SCHEMA: ColumnSchema[] = [
   {
-    id: 'time',
-    label: 'Tiempo',
-    description: 'Tiempo de observación (días, horas, o timestamps)',
+    id: "search_id",
+    label: "ID",
+    description: "Tiempo de observación (días, horas, o timestamps)",
     required: true,
-    dataType: 'number',
-    example: '2451545.0'
+    dataType: "string",
+    example: "KIC 010000964",
   },
   {
-    id: 'flux',
-    label: 'Flujo',
-    description: 'Flujo de luz observado (normalizado o en unidades específicas)',
+    id: "num_planet",
+    label: "No. of Planet",
+    description:
+      "Flujo de luz observado (normalizado o en unidades específicas)",
     required: true,
-    dataType: 'number',
-    example: '0.9998'
+    dataType: "number",
+    example: "0.9998",
   },
   {
-    id: 'flux_error',
-    label: 'Error de Flujo',
-    description: 'Incertidumbre en la medición del flujo',
+    id: "disposition",
+    label: "Disposition",
+    description:
+      "Flujo de luz observado (normalizado o en unidades específicas)",
     required: true,
-    dataType: 'number',
-    example: '0.0001'
+    dataType: "number",
+    example: "0.9998",
   },
   {
-    id: 'quality_flag',
-    label: 'Flag de Calidad',
-    description: 'Indicador de calidad de la medición',
+    id: "ror",
+    label: "Ratio Planet - Star",
+    description: "Incertidumbre en la medición del flujo",
     required: true,
-    dataType: 'number',
-    example: '0'
-  }
+    dataType: "number",
+    example: "0.0001",
+  },
+  {
+    id: "stellar_mass",
+    label: "Stellar Mass",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "number",
+    example: "0",
+  },
+  {
+    id: "ss_gravity",
+    label: "Stellar Gravity",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "number",
+    example: "0",
+  },
+  {
+    id: "period",
+    label: "Transit Period",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "number",
+    example: "0",
+  },
+  {
+    id: "duration",
+    label: "Transit Duration",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "number",
+    example: "0",
+  },
+  {
+    id: "transit_epoch",
+    label: "Transit Epoch",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "number",
+    example: "0",
+  },
+];
+
+export const EXOPLANET_SCHEMA_EXTENDED: ColumnSchema[] = [
+  {
+    id: "search_id",
+    label: "ID",
+    description: "Tiempo de observación (días, horas, o timestamps)",
+    required: true,
+    dataType: "string",
+    example: "2451545.0",
+  },
+  {
+    id: "num_planet",
+    label: "No. of Planet",
+    description:
+      "Flujo de luz observado (normalizado o en unidades específicas)",
+    required: true,
+    dataType: "number",
+    example: "0.9998",
+  },
+  {
+    id: "disposition",
+    label: "Disposition",
+    description:
+      "Flujo de luz observado (normalizado o en unidades específicas)",
+    required: true,
+    dataType: "number",
+    example: "0.9998",
+  },
+  {
+    id: "ror",
+    label: "Ratio Planet - Star",
+    description: "Incertidumbre en la medición del flujo",
+    required: true,
+    dataType: "number",
+    example: "0.0001",
+  },
+  {
+    id: "stellar_mass",
+    label: "Stellar Mass",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "number",
+    example: "0",
+  },
+  {
+    id: "ss_gravity",
+    label: "Stelar Gravity",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "number",
+    example: "0",
+  },
+  {
+    id: "global_view",
+    label: "Global View",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "lightcurve",
+    example: "0",
+  },
+  {
+    id: "local_view",
+    label: "Local View",
+    description: "Indicador de calidad de la medición",
+    required: true,
+    dataType: "lightcurve",
+    example: "0",
+  },
 ];

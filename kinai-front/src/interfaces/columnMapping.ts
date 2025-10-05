@@ -3,7 +3,7 @@ export interface ColumnSchema {
   label: string;
   description: string;
   required: boolean;
-  dataType: 'string' | 'number' | 'date' | 'boolean';
+  dataType: "string" | "number" | "date" | "boolean" | "lightcurve";
   example?: string;
 }
 
