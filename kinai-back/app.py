@@ -1,17 +1,18 @@
+import os
 from flask import Flask, request, jsonify
 from classes.prediction import predictor
+from config import config
 
 app = Flask(__name__)
 
-# ===========================
-# 🔹 Rutas de la API
-# ===========================
+config_name = os.getenv('FLASK_ENV', 'development')
+app.config.from_object(config[config_name])
+
 
 @app.route("/")
 def home():
     return "<h2>API de predicción lista ✅</h2>"
 
-# ---- DEEP MODEL (TensorFlow / Keras)
 @app.post("/deep-predict")
 def deep_predict():
     data = request.get_json()
@@ -22,7 +23,6 @@ def deep_predict():
     result = predictor.deep_predict(features)
     return jsonify({"prediction": result})
 
-# ---- FAST MODEL (Scikit-Learn)
 @app.post("/fast-predict")
 def fast_predict():
     data = request.get_json()
@@ -33,8 +33,10 @@ def fast_predict():
     result = predictor.fast_predict(features)
     return jsonify({"prediction": result})
 
-# ===========================
-# 🔹 Iniciar servidor
-# ===========================
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host='0.0.0.0', 
+        port=app.config['PORT'], 
+        debug=app.config['DEBUG']
+    )
