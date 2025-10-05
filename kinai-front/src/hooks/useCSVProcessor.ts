@@ -20,6 +20,7 @@ export const useCSVProcessor = ({ onDataProcessed, onMappingComplete }: UseCSVPr
     });
 
     const headers = result.meta.fields || [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rows = (result.data as any[]).map((rowObj: any) =>
       headers.map((header) => String(rowObj[header] ?? "").trim())
     );

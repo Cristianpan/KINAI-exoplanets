@@ -42,7 +42,7 @@ export const DataChallengeSection: React.FC = () => {
           maxWidth: "800px",
         }}
       >
-        NASA's Kepler mission observed more than 150,000 stars, generating over 10 terabytes of data. Manual analysis of these light curves requires examining millions of data points for each exoplanet candidate.
+        {"NASA's"} Kepler mission observed more than 150,000 stars, generating over 10 terabytes of data. Manual analysis of these light curves requires examining millions of data points for each exoplanet candidate.
       </Typography>
 
       <Box

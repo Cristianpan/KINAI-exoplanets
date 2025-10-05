@@ -1,19 +1,10 @@
 "use client";
 import React, { useMemo } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 
 interface LightCurveChartProps {
   points: number[];
-}
-
-interface TooltipProps {
-  active?: boolean;
-  payload?: Array<{
-    value: number;
-    dataKey: string;
-  }>;
-  label?: string;
 }
 
 function formatDate(d: Date) {

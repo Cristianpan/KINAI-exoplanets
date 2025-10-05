@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Box, Typography } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 // import dynamic from "next/dynamic";
@@ -53,6 +53,7 @@ export const LightCurveSection: React.FC = () => {
   // Base temporal (un punto por día)
   const start = useMemo(() => new Date(1997, 9, 3), []);
   const oneDay = 24 * 3600 * 1000;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chartRef = React.useRef<any>(null);
 
   const seriesData = useMemo(
