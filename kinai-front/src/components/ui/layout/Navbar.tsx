@@ -15,8 +15,6 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { id: "inicio", label: "Inicio", href: "/" },
   { id: "analisis", label: "Análisis", href: "/analysis" },
-  { id: "entrenamiento", label: "Entrenamiento", href: "/training"},
-  { id: "modelos", label: "Modelos", href: "/models" },
 ];
 
 const NAVBAR_STYLES = {

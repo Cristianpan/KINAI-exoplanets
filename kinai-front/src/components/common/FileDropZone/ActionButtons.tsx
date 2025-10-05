@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button } from "@mui/material";
-import { AutoFixHigh, Description } from "@mui/icons-material";
+import { AutoFixHigh } from "@mui/icons-material";
 
 interface ActionButtonsProps {
   hasFiles: boolean;
@@ -11,7 +11,6 @@ interface ActionButtonsProps {
 export default function ActionButtons({
   hasFiles,
   onAnalyzeWithAI,
-  onUseExampleData,
 }: ActionButtonsProps) {
   return (
     <Box sx={{
@@ -41,29 +40,6 @@ export default function ActionButtons({
           }}
         >
           Analizar con IA
-        </Button>
-      )}
-      
-      {onUseExampleData && (
-        <Button
-          onClick={onUseExampleData}
-          startIcon={<Description />}
-          sx={{
-            color: "primary.dark",
-            px: 3,
-            py: 1.5,
-            borderRadius: 2,
-            textTransform: "none",
-            fontSize: "1rem",
-            fontWeight: 600,
-            border: "1px solid",
-            borderColor: "grey.300",
-            "&:hover": {
-              backgroundColor: "grey.50",
-            },
-          }}
-        >
-          Usar datos de ejemplo
         </Button>
       )}
     </Box>

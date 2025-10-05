@@ -5,6 +5,9 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import { InfoCard } from "@/components/home/InfoCard";
 import { ExoplanetsSection } from "@/components/home/ExoplanetsSection";
+import { LightCurveSection } from "@/components/home/LightCurveSection";
+import { DataChallengeSection } from "@/components/home/DataChallengeSection";
+import { ComparisonSection } from "@/components/home/ComparisonSection";
 import { Exoplanet } from "@/interfaces/exoplanet";
 
 export default function Home() {
@@ -53,15 +56,14 @@ export default function Home() {
         id="learn-more"
         sx={{
           maxWidth: "1024px",
-          padding: "8rem 4rem",
+          padding: "6rem 4rem 2rem 4rem",
           display: "flex",
           flexDirection: "column",
           gap: 2,
           justifyContent: "center",
           alignItems: "center",
           mx: "auto",
-          minHeight: "100vh",
-          scrollSnapAlign: "start",
+          minHeight: "80vh",
         }}
       >
         <Typography
@@ -117,7 +119,15 @@ export default function Home() {
         </Box>
       </Box>
 
+      <LightCurveSection />
+
       <ExoplanetsSection exoplanets={sampleExoplanets} />
+      
+      <DataChallengeSection />
+
+
+      <ComparisonSection />
+
     </>
   );
 }

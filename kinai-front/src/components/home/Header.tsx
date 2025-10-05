@@ -30,7 +30,7 @@ export const Header = () => {
             textAlign: "center",
           }}
         >
-          Descubriendo Nuevos Mundos con IA
+          Descubriendo nuevos mundos entre millones de estrellas
         </Typography>
         <Typography
           component="p"
@@ -41,10 +41,8 @@ export const Header = () => {
             textAlign: "center",
           }}
         >
-          Nuestra aplicación utiliza Inteligencia Artificial y Machine Learning
-          para identificar exoplanetas a partir de datos astronómicos. Explora
-          el cosmos y descubre los secretos que aguardan más allá de nuestro
-          sistema solar.
+          Cada punto de luz en el cielo esconde una historia. Algunos de ellos,
+          quizá, otro planeta como la Tierra.
         </Typography>
       </Box>
 
