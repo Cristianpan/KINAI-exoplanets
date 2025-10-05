@@ -92,7 +92,7 @@ export const ExoplanetCard: React.FC<ExoplanetCardProps> = ({ exoplanet, onClick
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
           <SquareFootOutlinedIcon sx={{ fontSize: "1.6rem", color: "grey.700" }} />
           <Typography variant="body2" sx={{ color: "grey.700" }}>
-            Radio
+            Radius
           </Typography>
         </Box>
         <Typography variant="body2" sx={{ fontWeight: 500, color: "grey.900" }}>
@@ -128,7 +128,7 @@ export const ExoplanetCard: React.FC<ExoplanetCardProps> = ({ exoplanet, onClick
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
           <HourglassEmptyRoundedIcon sx={{ fontSize: "1.6rem", color: "grey.700" }} />
           <Typography variant="body2" sx={{ color: "grey.700" }}>
-            Periodo orbital
+            Orbital Period
           </Typography>
         </Box>
         <Typography variant="body2" sx={{ fontWeight: 500, color: "grey.900" }}>

@@ -20,18 +20,14 @@ export const useCSVProcessor = ({ onDataProcessed, onMappingComplete }: UseCSVPr
     });
 
     const headers = result.meta.fields || [];
-    const rows = result.data as string[][];
-
-    console.log({
-      headers,
-      rows,
-      totalRows: rows.length
-    })
+    const rows = (result.data as any[]).map((rowObj: any) =>
+      headers.map((header) => String(rowObj[header] ?? "").trim())
+    );
 
     return {
       headers,
       rows,
-      totalRows: rows.length
+      totalRows: rows.length,
     };
   }, []);
 

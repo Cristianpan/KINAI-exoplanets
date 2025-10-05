@@ -28,7 +28,7 @@ export default function FileList({
         component="p"
         sx={{ mt: 2, mb: 1, fontWeight: 600, color: "secondary.main" }}
       >
-        Archivos seleccionados ({files.length}/{maxFiles}):
+        Selected files ({files.length}/{maxFiles}):
       </Typography>
       {files.map((file, index) => (
         <Fade

@@ -29,7 +29,7 @@ export const ComparisonSection: React.FC = () => {
         variant="h2"
         sx={{ textAlign: "center", color: "primary.dark", mb: 2 }}
       >
-        Análisis Manual vs. Inteligencia Artificial
+        Manual Analysis vs. Artificial Intelligence
       </Typography>
       
       <Typography
@@ -43,7 +43,7 @@ export const ComparisonSection: React.FC = () => {
           maxWidth: "800px",
         }}
       >
-        La IA no reemplaza a los astrónomos, sino que amplifica sus capacidades exponencialmente.
+        AI does not replace astronomers, but exponentially amplifies their capabilities.
       </Typography>
 
       <Box
@@ -77,7 +77,7 @@ export const ComparisonSection: React.FC = () => {
                     fontSize: "2.4rem",
                   }}
                 >
-                  Análisis Manual
+                  Manual Analysis
                 </Typography>
               </Box>
 
@@ -85,21 +85,21 @@ export const ComparisonSection: React.FC = () => {
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <AccessTimeIcon sx={{ fontSize: "2rem", color: "#666", mr: 2 }} />
                   <Typography variant="body1" sx={{ color: "primary.dark", fontSize: "1.6rem" }}>
-                    <strong>Tiempo de Análisis:</strong> Semanas o meses para analizar miles de curvas de luz
+                    <strong>Analysis Time:</strong> Weeks or months to analyze thousands of light curves
                   </Typography>
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <GpsFixedIcon sx={{ fontSize: "2rem", color: "#666", mr: 2 }} />
                   <Typography variant="body1" sx={{ color: "primary.dark", fontSize: "1.6rem" }}>
-                    <strong>Precisión:</strong> Limitada por fatiga humana y sesgos cognitivos
+                    <strong>Accuracy:</strong> Limited by human fatigue and cognitive biases
                   </Typography>
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <TrendingUpIcon sx={{ fontSize: "2rem", color: "#666", mr: 2 }} />
                   <Typography variant="body1" sx={{ color: "primary.dark", fontSize: "1.6rem" }}>
-                    <strong>Escalabilidad:</strong> Requiere equipos grandes para procesar datos masivos
+                    <strong>Scalability:</strong> Requires large teams to process massive data
                   </Typography>
                 </Box>
               </Box>
@@ -132,7 +132,7 @@ export const ComparisonSection: React.FC = () => {
                     fontWeight: 500,
                   }}
                 >
-                  Curvas de luz por día
+                  Light curves per day
                 </Typography>
               </Box>
             </CardContent>
@@ -161,7 +161,7 @@ export const ComparisonSection: React.FC = () => {
                     fontSize: "2.4rem",
                   }}
                 >
-                  Análisis con IA
+                  AI Analysis
                 </Typography>
               </Box>
 
@@ -170,11 +170,11 @@ export const ComparisonSection: React.FC = () => {
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                     <AccessTimeIcon sx={{ fontSize: "2rem", color: "secondary.main", mr: 2 }} />
                     <Typography variant="body1" sx={{ color: "primary.dark", fontSize: "1.6rem" }}>
-                      <strong>Tiempo de Análisis:</strong> Minutos para analizar millones de curvas de luz
+                      <strong>Analysis Time:</strong> Minutes to analyze millions of light curves
                     </Typography>
                   </Box>
                   <Typography variant="body2" sx={{ color: "secondary.main", fontSize: "1.4rem", ml: 6, fontWeight: 600 }}>
-                    1000x más rápido
+                    1000x faster
                   </Typography>
                 </Box>
 
@@ -182,11 +182,11 @@ export const ComparisonSection: React.FC = () => {
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                     <GpsFixedIcon sx={{ fontSize: "2rem", color: "secondary.main", mr: 2 }} />
                     <Typography variant="body1" sx={{ color: "primary.dark", fontSize: "1.6rem" }}>
-                      <strong>Precisión:</strong> Detecta patrones sutiles invisibles al ojo humano
+                      <strong>Accuracy:</strong> Detects subtle patterns invisible to the human eye
                     </Typography>
                   </Box>
                   <Typography variant="body2" sx={{ color: "secondary.main", fontSize: "1.4rem", ml: 6, fontWeight: 600 }}>
-                    99.8% de precisión
+                    99.8% accuracy
                   </Typography>
                 </Box>
 
@@ -194,11 +194,11 @@ export const ComparisonSection: React.FC = () => {
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                     <TrendingUpIcon sx={{ fontSize: "2rem", color: "secondary.main", mr: 2 }} />
                     <Typography variant="body1" sx={{ color: "primary.dark", fontSize: "1.6rem" }}>
-                      <strong>Escalabilidad:</strong> Procesa datos de múltiples misiones simultáneamente
+                      <strong>Scalability:</strong> Processes data from multiple missions simultaneously
                     </Typography>
                   </Box>
                   <Typography variant="body2" sx={{ color: "secondary.main", fontSize: "1.4rem", ml: 6, fontWeight: 600 }}>
-                    Escalado ilimitado
+                    Unlimited scaling
                   </Typography>
                 </Box>
               </Box>
@@ -231,7 +231,7 @@ export const ComparisonSection: React.FC = () => {
                     fontWeight: 500,
                   }}
                 >
-                  Curvas de luz por día
+                  Light curves per day
                 </Typography>
               </Box>
             </CardContent>

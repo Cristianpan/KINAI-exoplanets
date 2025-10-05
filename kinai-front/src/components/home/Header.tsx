@@ -30,7 +30,7 @@ export const Header = () => {
             textAlign: "center",
           }}
         >
-          Descubriendo nuevos mundos entre millones de estrellas
+          Discovering new worlds among millions of stars.
         </Typography>
         <Typography
           component="p"
@@ -41,8 +41,8 @@ export const Header = () => {
             textAlign: "center",
           }}
         >
-          Cada punto de luz en el cielo esconde una historia. Algunos de ellos,
-          quizá, otro planeta como la Tierra.
+          Every point of light in the sky hides a story. Some of them, perhaps,
+          another planet like Earth.
         </Typography>
       </Box>
 
@@ -54,7 +54,7 @@ export const Header = () => {
           component={Link}
           href="#learn-more"
         >
-          Aprende más
+          Learn more
         </Button>
         <Button
           variant="contained"
@@ -76,7 +76,7 @@ export const Header = () => {
           component={Link}
           href="#"
         >
-          Comenzar análisis
+          Begin Analysis
         </Button>
       </Box>
     </Box>

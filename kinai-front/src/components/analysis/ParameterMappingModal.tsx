@@ -130,6 +130,7 @@ export default function ParameterMappingModal({
               // Convert based on data type
               if (column.schema?.dataType === "number") {
                 const parsed = parseFloat(value);
+                console.log(parsed)
                 convertedValue = isNaN(parsed) ? 0 : parsed;
                 // Debug log for number conversion issues
                 if (value && isNaN(parsed)) {
@@ -182,7 +183,7 @@ export default function ParameterMappingModal({
         <Typography
           sx={{ fontWeight: "bold", color: "primary.dark", fontSize: "2.4rem" }}
         >
-          Parámetros de Detección
+          Detection Parameters
         </Typography>
         <IconButton
           onClick={handleClose}
@@ -204,7 +205,7 @@ export default function ParameterMappingModal({
             my: 3,
           }}
         >
-          Selecciona las columnas CSV para cada parámetro.
+          Select the CSV columns for each parameter.
         </Typography>
 
         {/* Required Fields Counter */}
@@ -230,7 +231,7 @@ export default function ParameterMappingModal({
                   fontWeight: "bold",
                 }}
               >
-                Campos Requeridos: {mapped} de {total} mapeados
+                Required Fields: {mapped} of {total} mapped
               </Typography>
             </Box>
           );
@@ -301,7 +302,7 @@ export default function ParameterMappingModal({
                               fontStyle: "italic",
                             }}
                           >
-                            Ejemplo: {schema.example}
+                            Example: {schema.example}
                           </Typography>
                         )}
                         {mapping?.csvColumn && (
@@ -313,7 +314,7 @@ export default function ParameterMappingModal({
                                 fontWeight: "bold",
                               }}
                             >
-                              ✓ Mapeado a: {mapping.csvColumn}
+                              ✓ Mapped to: {mapping.csvColumn}
                             </Typography>
                           </Box>
                         )}
@@ -331,7 +332,7 @@ export default function ParameterMappingModal({
                                     mb: 0.5
                                   }}
                                 >
-                                  Columnas en uso por otros parámetros:
+                                  Columns used by other parameters:
                                 </Typography>
                                 {usedColumns.map((column, idx) => (
                                   <Typography
@@ -410,7 +411,7 @@ export default function ParameterMappingModal({
                   >
                     <MenuItem value="">
                       <Typography variant="caption">
-                        Seleccionar columna
+                        Select column
                       </Typography>
                     </MenuItem>
                     {csvData?.headers.map((column) => {
@@ -442,7 +443,7 @@ export default function ParameterMappingModal({
                                   fontStyle: "italic"
                                 }}
                               >
-                                (ya en uso)
+                                (already in use)
                               </Typography>
                             )}
                           </Typography>
@@ -468,7 +469,7 @@ export default function ParameterMappingModal({
                           display: "block"
                         }}
                       >
-                        {availableColumns} de {totalColumns} columnas disponibles
+                        {availableColumns} of {totalColumns} columns available
                       </Typography>
                     );
                   }
@@ -554,7 +555,7 @@ export default function ParameterMappingModal({
           }}
           variant="outlined"
         >
-          Cancelar
+          Cancel
         </Button>
 
         <Button
@@ -563,7 +564,7 @@ export default function ParameterMappingModal({
           color="secondary"
           variant="contained"
         >
-          Confirmar Mapeo
+          Confirm Mapping
         </Button>
       </DialogActions>
     </Dialog>

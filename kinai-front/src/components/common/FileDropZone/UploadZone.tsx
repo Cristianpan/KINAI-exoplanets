@@ -56,13 +56,13 @@ export default function UploadZone({
         color: "grey.600",
         mb: 1,
       }}>
-        Haz clic para cargar o arrastra archivos aquí
+        Click to upload or drag files here
       </Typography>
       
       <Typography variant="caption" sx={{
         color: "grey.500",
       }}>
-        Formatos soportados: {acceptedTypes.join(", ").toUpperCase()} (máx. {maxFileSize}MB por archivo, {maxFiles} archivos máximo)
+        Supported formats: {acceptedTypes.join(", ").toUpperCase()} (max {maxFileSize}MB per file, {maxFiles} files allowed)
       </Typography>
     </Paper>
   );

@@ -27,7 +27,7 @@ export default function ActionButtons({
             p: "1rem 2rem"
           }}
         >
-          Analizar
+          Analyze with AI
         </Button>
       )}
     </>

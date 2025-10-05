@@ -28,7 +28,7 @@ export const DataChallengeSection: React.FC = () => {
         variant="h2"
         sx={{ textAlign: "center", color: "primary.dark" }}
       >
-        El Desafío de los Datos Astronómicos
+        The Challenge of Astronomical Data
       </Typography>
       
       <Typography
@@ -42,9 +42,7 @@ export const DataChallengeSection: React.FC = () => {
           maxWidth: "800px",
         }}
       >
-        La misión Kepler de la NASA observó más de 150,000 estrellas generando 
-        más de 10 terabytes de datos. El análisis manual de estas curvas de luz 
-        requiere examinar millones de puntos de datos por cada exoplaneta candidato.
+        NASA's Kepler mission observed more than 150,000 stars, generating over 10 terabytes of data. Manual analysis of these light curves requires examining millions of data points for each exoplanet candidate.
       </Typography>
 
       <Box
@@ -56,8 +54,8 @@ export const DataChallengeSection: React.FC = () => {
         }}
       >
         <InfoCard
-          title="10+ Terabytes de Datos"
-          description="Kepler recopiló información de 150,000 estrellas durante 9 años de observación continua"
+          title="10+ Terabytes of Data"
+          description="Kepler collected information from 150,000 stars during 9 years of continuous observation."
           icon={
             <StorageIcon
               sx={{ fontSize: "2.5rem", color: "secondary.dark" }}
@@ -65,13 +63,13 @@ export const DataChallengeSection: React.FC = () => {
           }
         />
         <InfoCard
-          title="Millones de Puntos por Curva"
-          description="Cada curva de luz contiene cientos de miles de mediciones de brillo estelar que deben analizarse individualmente"
+          title="Millions of Points per Curve"
+          description="Each light curve contains hundreds of thousands of stellar brightness measurements that must be analyzed individually."
           icon={<TimelineIcon sx={{ fontSize: "2.5rem", color: "secondary.dark" }} />}
         />
         <InfoCard
-          title="Análisis Manual Intensivo"
-          description="El proceso de confirmación de un exoplaneta puede requerir semanas o meses de revisión experta por cada candidato"
+          title="Intensive Manual Analysis"
+          description="The process of confirming an exoplanet can require weeks or months of expert review for each candidate."
           icon={<ScienceIcon sx={{ fontSize: "2.5rem", color: "secondary.dark" }} />}
         />
       </Box>

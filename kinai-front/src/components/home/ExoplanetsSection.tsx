@@ -45,7 +45,7 @@ export const ExoplanetsSection: React.FC<ExoplanetsSectionProps> = ({ exoplanets
           variant="h2"
           sx={{ textAlign: "center", color: "primary.dark"}}
         >
-          Exoplanetas Descubiertos
+          Discovered Exoplanets
         </Typography>
         <Typography
           component="p"
@@ -57,9 +57,7 @@ export const ExoplanetsSection: React.FC<ExoplanetsSectionProps> = ({ exoplanets
             mb: 3,
           }}
         >
-          Explora algunos de los exoplanetas más fascinantes que hemos descubierto
-          hasta ahora. Cada uno representa un mundo único con características
-          extraordinarias.
+          Explore some of the most fascinating exoplanets we have discovered so far. Each one represents a unique world with extraordinary characteristics.
         </Typography>
 
         <Box

@@ -25,7 +25,7 @@ export const EXOPLANET_SCHEMA: ColumnSchema[] = [
   },
   {
     id: "num_planet",
-    label: "No. of Planet",
+    label: "Num. of Planet",
     description:
       "Flujo de luz observado (normalizado o en unidades específicas)",
     required: true,
@@ -102,7 +102,7 @@ export const EXOPLANET_SCHEMA_EXTENDED: ColumnSchema[] = [
   },
   {
     id: "num_planet",
-    label: "No. of Planet",
+    label: "Num. of Planet",
     description:
       "Flujo de luz observado (normalizado o en unidades específicas)",
     required: true,

@@ -152,7 +152,7 @@ export const LightCurveSection: React.FC = () => {
         variant="h2"
         sx={{ textAlign: "center", color: "primary.dark" }}
       >
-        Curvas de Luz: Detectando Tránsitos Planetarios
+        Light Curves: Detecting Planetary Transits
       </Typography>
       
       <Typography
@@ -166,8 +166,7 @@ export const LightCurveSection: React.FC = () => {
           maxWidth: "800px",
         }}
       >
-        Cuando un planeta pasa frente a su estrella, el brillo disminuye ligeramente. 
-        La detección manual de estos patrones consume semanas de trabajo especializado.
+        When a planet passes in front of its star, the brightness slightly decreases. Manual detection of these patterns takes weeks of specialized work.
       </Typography>
 
       <Box
@@ -201,7 +200,7 @@ export const LightCurveSection: React.FC = () => {
           >
             <CircularProgress size={16} sx={{ color: "primary.main" }} />
             <Typography variant="caption" sx={{ color: "primary.main", fontWeight: 600 }}>
-              Analizando... {visiblePoints}/{data.length} puntos
+              Analyzing... {visiblePoints}/{data.length} points
             </Typography>
           </Box>
         )}
@@ -223,7 +222,7 @@ export const LightCurveSection: React.FC = () => {
                 axisLine={true}
                 tick={{ fill: "#333", fontSize: "1.1rem" }}
                 label={{
-                  value: "Tiempo (horas)",
+                  value: "Time (hours)",
                   position: "insideBottom",
                   offset: -10,
                   style: { textAnchor: "middle", fill: "#333", fontSize: "1.2rem", fontWeight: 500 },
@@ -237,7 +236,7 @@ export const LightCurveSection: React.FC = () => {
                 axisLine={true}
                 tick={{ fill: "#333", fontSize: "1.1rem" }}
                 label={{
-                  value: "Brillo Estelar Normalizado",
+                  value: "Normalized Stellar Brightness",
                   angle: -90,
                   position: "insideLeft",
                   offset: -10,
@@ -309,7 +308,7 @@ export const LightCurveSection: React.FC = () => {
               },
             }}
           >
-            {analysisState === "analyzing" ? "Analizando..." : "Iniciar Análisis"}
+            {analysisState === "analyzing" ? "Analyzing..." : "Start Analysis"}
           </Button>
           
           <Button
@@ -330,7 +329,7 @@ export const LightCurveSection: React.FC = () => {
               },
             }}
           >
-            Reiniciar
+            Reset
           </Button>
         </Box>
 
@@ -346,9 +345,9 @@ export const LightCurveSection: React.FC = () => {
             }}
           >
             <Typography variant="body2" sx={{ color: "secondary.dark", textAlign: "center" }}>
-              ✅ <strong>Tránsito detectado:</strong> Disminución del 5% en el brillo estelar 
-              entre las horas 35-45. El análisis tradicional requiere revisar manualmente 
-              miles de puntos de datos.
+              ✅ <strong>Transit detected:</strong> 5% decrease in stellar brightness 
+              between hours 35-45. Traditional analysis requires manually reviewing 
+              thousands of data points.
             </Typography>
           </Box>
         )}

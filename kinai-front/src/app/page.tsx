@@ -71,7 +71,7 @@ export default function Home() {
           variant="h2"
           sx={{ textAlign: "center", color: "primary.dark" }}
         >
-          ¿Qué es un exoplaneta y por qué es importante?
+          What is an exoplanet and why is it important?
         </Typography>
         <Typography
           component="p"
@@ -83,11 +83,7 @@ export default function Home() {
             fontWeight: 400,
           }}
         >
-          Un exoplaneta es un planeta que orbita una estrella fuera de nuestro
-          sistema solar. Su identificación es crucial para entender la formación
-          de sistemas planetarios, buscar atmósferas que puedan albergar vida y,
-          en última instancia, responder a la pregunta de si estamos solos en el
-          universo.
+          An exoplanet is a planet that orbits a star outside our solar system. Identifying them is crucial to understanding the formation of planetary systems, searching for atmospheres that could harbor life, and ultimately answering the question of whether we are alone in the universe.
         </Typography>
 
         <Box
@@ -98,8 +94,8 @@ export default function Home() {
           }}
         >
           <InfoCard
-            title="Busqueda de vida"
-            description='Encontrar planetas en la "zona habitable". donde podría existir agua líquida, es el primer paso para buscar vida más allá de la Tierra'
+            title="Search for Life"
+            description='Finding planets in the "habitable zone", where liquid water could exist, is the first step in searching for life beyond Earth.'
             icon={
               <PublicRoundedIcon
                 sx={{ fontSize: "2.5rem", color: "secondary.dark" }}
@@ -107,13 +103,13 @@ export default function Home() {
             }
           />
           <InfoCard
-            title="Entender el universo"
-            description="El estudio de exoplanetas nos revela la diversidad de mundos que existen y nos ayuda a comprender mejor cómo se forman y evolucionan los planetas"
+            title="Understanding the Universe"
+            description="The study of exoplanets reveals the diversity of worlds that exist and helps us better understand how planets form and evolve."
             icon={<LightbulbOutlinedIcon sx={{ fontSize: "2.5rem", color: "secondary.dark" }} />}
           />
           <InfoCard
-            title="Inspiración futura"
-            description="Cada exoplaneta descubierto inspira a nuevas generaciones a explorar, investigar y soñar con las posibilidades infinitas del cosmos"
+            title="Future Inspiration"
+            description="Every discovered exoplanet inspires new generations to explore, investigate, and dream about the infinite possibilities of the cosmos."
             icon={<AutoAwesomeOutlinedIcon sx={{ fontSize: "2.5rem", color: "secondary.dark" }} />}
           />
         </Box>
