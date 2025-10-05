@@ -1,38 +1,18 @@
 import os
-from flask import Flask, request, jsonify
-from classes.prediction import predictor
+from flask import Flask
+from app.routes.schema_routes import schema_blueprint
+from app.routes.prediction_routes import prediction_blueprint
 from config import config
 
 app = Flask(__name__)
 
+# Configuration
 config_name = os.getenv('FLASK_ENV', 'development')
 app.config.from_object(config[config_name])
 
-
-@app.route("/")
-def home():
-    return "<h2>API de predicción lista ✅</h2>"
-
-@app.post("/deep-predict")
-def deep_predict():
-    data = request.get_json()
-    if not data or "features" not in data:
-        return jsonify({"error": "Falta el campo 'features' en el cuerpo del POST"}), 400
-
-    features = data["features"]
-    result = predictor.deep_predict(features)
-    return jsonify({"prediction": result})
-
-@app.post("/fast-predict")
-def fast_predict():
-    data = request.get_json()
-    if not data or "features" not in data:
-        return jsonify({"error": "Falta el campo 'features' en el cuerpo del POST"}), 400
-
-    features = data["features"]
-    result = predictor.fast_predict(features)
-    return jsonify({"prediction": result})
-
+# Register blueprints
+app.register_blueprint(schema_blueprint)
+app.register_blueprint(prediction_blueprint)
 
 if __name__ == "__main__":
     app.run(
