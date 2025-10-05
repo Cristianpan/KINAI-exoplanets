@@ -13,8 +13,8 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "inicio", label: "Inicio", href: "/" },
-  { id: "analisis", label: "Análisis", href: "/analysis" },
+  { id: "inicio", label: "Home", href: "/" },
+  { id: "analisis", label: "Predict", href: "/analysis" },
 ];
 
 const NAVBAR_STYLES = {
@@ -124,7 +124,7 @@ const Logo = ({ isInContentSection, pathname }: { isInContentSection: boolean; p
           color: shouldUseWhite ? "common.white" : "primary.dark",
         }}
       >
-        Cosmos explorer
+        Cosmos Explorer
       </Typography>
     </Link>
   );
