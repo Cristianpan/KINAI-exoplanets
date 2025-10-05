@@ -274,7 +274,7 @@ export default function AnalysisContent() {
                     component="div"
                     sx={{
                       bgcolor:
-                        prediction === 1 ? "secondary.light" : "grey.200",
+                        prediction === 1 ? "secondary.light" : "grey.700",
                       padding: "0.5rem 1rem",
                       borderRadius: "1rem",
                       fontSize: "1rem",
@@ -282,7 +282,7 @@ export default function AnalysisContent() {
                       mt: "1rem",
                     }}
                   >
-                    {prediction === 1 ? "exoplanet" : "not Exoplanet"}
+                    {prediction === 1 ? "exoplanet" : "not exoplanet"}
                   </Typography>
                 </Box>
               </>
