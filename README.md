@@ -1,6 +1,6 @@
 # KINAI-exoplanets 🪐
 
-[![NASA Space Apps Challenge 2025](https://img.shields.io/badge/NASA-Space%20Apps%202025-0B3D91?style=for-the-badge&logo=nasa)](https://www.spaceappschallenge.org/)
+[![NASA Space Apps Challenge 2025](https://img.shields.io/badge/NASA-Space%20Apps%202025-0B3D91?style=for-the-badge&logo=nasa)](https://www.spaceappschallenge.org/2025/find-a-team/kinai/?tab=project)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-Deep%20Learning-FF6F00?style=for-the-badge&logo=tensorflow)
 ![Next.js](https://img.shields.io/badge/Next.js-Frontend-000000?style=for-the-badge&logo=nextdotjs)
@@ -14,6 +14,7 @@
 ## 📊 Project Demonstration
 
 - **📋 Project Demo**: [Production URL](https://kinai-exoplanets.vercel.app/)
+- **📋 Project**: [Project Description](https://www.spaceappschallenge.org/2025/find-a-team/kinai/?tab=project)
 - **🐙 GitHub Repository**: [KINAI-exoplanets](https://github.com/Cristianpan/KINAI-exoplanets)
 
 ## 🎯 Key Features
